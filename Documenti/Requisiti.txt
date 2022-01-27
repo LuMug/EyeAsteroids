@@ -1,0 +1,12 @@
+Requisiti:
+
+1. La navicella deve ruotare su se stessa
+2. Poter saprare con lo sguardo sparo singolo.
+3. Poter sparare con la tastiera (extra)
+4. Diverse difficoltà in base al tempo.
+5. Essere fedele alla versione originale.(extra)
+6. Avere un database dove salvare la classifica.
+7. Generare gli asteroidi in movimento
+8. Punteggio (più volte lo stesso nome)
+9. Macchina dedicata.
+10. Asteroidi multipli.(extra)
