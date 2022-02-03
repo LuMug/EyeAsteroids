@@ -5,18 +5,18 @@
 ## Lavori svolti
 
 
-|Orario        |Lavoro svolto                                               	  |Eseguito da        |
-|--------------|----------------------------------------------------------------- |-------------------|
+|Orario        |Lavoro svolto                                               	    |Eseguito da            |
+|--------------|----------------------------------------------------------------- |-----------------------|
 |09:05 - 09:20 | Spiegazione progetto ad Alessandro (assente la settimana prima)  |Alessandro e Alessandro|
-|09:20 - 10:15 | Progettazione design interfacce								  |Alessandro e Alessandro|
-|10:15 - 10:35 | Progettazione Database										      |Alessandro e Alessandro|
-|10:50 - 11:20 | Ricerca online struttura cartelle						      	  |Alessandro e Alessandro|
-|11:20 - 12:00 | Progettazione struttura cartelle	    						  |Alessandro e Alessandro|
-|12:00 - 12:20 | Creazione struttura cartelle	    							  |Alessandro| 
-|12:00 - 12:20 | Diario	    										              |Alessandro|   
-|13:15 - 16:00 | Diagramma delle classi                         				  |Alessandro|  
-|13:15 - 16:30 | Schermata home                                                   |Alessandro|  
-|16:00 - 16:30 | Diario                                                           |Alessandro|  
+|09:20 - 10:15 | Progettazione design interfacce							                 	  |Alessandro e Alessandro|
+|10:15 - 10:35 | Progettazione Database										                        |Alessandro e Alessandro|
+|10:50 - 11:20 | Ricerca online struttura cartelle						      	            |Alessandro e Alessandro|
+|11:20 - 12:00 | Progettazione struttura cartelle	    						                |Alessandro e Alessandro|
+|12:00 - 12:20 | Creazione struttura cartelle	    							                  |Alessandro             |
+|12:00 - 12:20 | Diario	    										                                  |Alessandro             |   
+|13:15 - 16:00 | Diagramma delle classi                         				          |Alessandro             |  
+|13:15 - 16:30 | Schermata home                                                   |Alessandro             |    
+|16:00 - 16:30 | Diario                                                           |Alessandro             |  
 
 Mattia Pasquini era assente tutta la giornata perché malato.
 
