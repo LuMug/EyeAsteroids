@@ -6,7 +6,7 @@
 |EyeAsteroids   |<b>Alessandro Aloise,</b> <b>Mattia Pasquini,</b>  <b>Alessandro Castelli</b> |Luca Muggiasca|
 
 ## Info
-**Inizio:** 027.01.2022
+**Inizio:** 27.01.2022
 
 **Consegna:** 05.05.2022
 
@@ -15,7 +15,7 @@
 #### Mandato:
 - [Mandato](/Documenti/QdC_LM_EyeAsteroids.docx)	
 #### Struttura:
-- [Gantt preventivo](/Documenti/Gantt/GANTT_Preventivo.mpp)
+- [Gantt preventivo](/Documenti/Gantt/DocumentazioneCompleta.mpp)
 
 
 - [Diari di lavoro](Diari/)
