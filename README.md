@@ -15,7 +15,7 @@
 #### Mandato:
 - [Mandato](/Documenti/QdC_LM_EyeAsteroids.docx)	
 #### Struttura:
-- [Gantt preventivo](/Documenti/Gantt/DocumentazioneCompleta.mpp)
+- [Gantt preventivo](/Documenti/Gantt/GanttPreventivoEyeAsteroids.mpp)
 
 
 - [Diari di lavoro](Diari/)
