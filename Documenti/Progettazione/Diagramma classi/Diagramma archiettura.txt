@@ -1,0 +1,18 @@
+EyeAsteroids/
+│
+├── assets/
+│   ├── sounds/
+│   │   └── laser.wav
+│   │
+│   └── sprites/
+│       └── asteroidi.png 
+│       └── navicella.png
+│       └── esplosione.png	
+│
+├── space_asteroid/
+│   ├── __main__.py
+│   ├── game.py
+│   └── utils.py
+│   └── libs ?
+│
+└── requirements.txt
