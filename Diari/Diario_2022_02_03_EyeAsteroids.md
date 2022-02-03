@@ -33,4 +33,4 @@ I problemi riscontrati durante questa giornata:
 Puntuali rispetto alla programmazione
 
 ## Programma di massima per la prossima giornata di lavoro
-Come programma di massima per la prossima volta abbiamo discutere con Castelli che era assente e spiegarli il progetto e come ci siamo organizzati dopo di che iniziare a fare la progettazione delle interfacce.
+Finire la schermata home, iniziare la schermata di informazione e completare il diagramma delle classi
