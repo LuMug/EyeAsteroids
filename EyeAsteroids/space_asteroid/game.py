@@ -1,35 +1,32 @@
-import pygame
-from utils import load_sprite
-from utils import writeText
+from pygame.math import Vector2
 
+# La classe Game è la classe  che rappresenta gli oggetti in gioco in modo generico
+# che verrà ereditato dagli altri oggetti in gioco.
+class Game:
 
-class EyeAsteroids:
-    def __init__(self):
-        self._init_pygame()
-        self.screen = pygame.display.set_mode((800, 600))
-        self.background = load_sprite("background", False)
-        clock = pygame.time.Clock()
-        #font = pygame.font.Font('./assets/font/SFFunkOblique.ttf', 50)
+    # costruttore
+    # servono 3 parametri:
+    # - position:   posizione dell'oggetto
+    #               (centro dell'immagine! per semplificare eventuali rotazioni dell'oggetto,
+    #               per stampare bisogna fare qualche calcolo per ottenere la coordinata l'alto e sinsitra dell'oggetto)
+    # - sprite:     il percorso dell'immagine
+    # - velocity:   la velocità
+    def __init__(self, position, sprite, velocity):
+        self.position = Vector2(position)
+        self.sprite = sprite
+        self.radius = sprite.get_width() / 2
+        self.velocity = Vector2(velocity)
 
-    def main_loop(self):
-        while True:
-            self._handle_input()
-            self._draw()
+    # stampa l'oggetto calcolando la posizione (centro dell'oggetto) sottrando il raggio
+    def draw(self, surface):
+        blit_position = self.position - Vector2(self.radius)
+        surface.blit(self.sprite, blit_position)
 
-    def _init_pygame(self):
-        pygame.init()
-        pygame.display.set_caption("EyeAsteroids")
+    # aggiorna la posizione dell'oggetto sommando la velocità
+    def move(self):
+        self.position = self.position + self.velocity
 
-
-    def _draw(self):
-        self.screen.blit(self.background, (0, 0))
-        pygame.draw.rect(self.screen,(255,255,255),(300,270,200,60))
-        self.wirte = writeText("EyeAsteroids",400,100,60,(255,255,255),self)
-        self.wirte = writeText("START",400,300,40,(0,0,0),self)
-        pygame.display.flip()
-
-	
-    def _handle_input(self):
-    	for event in pygame.event.get():
-            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
-            	quit()
+    # calcola la collisione tra gli oggetti
+    def collides_with(self, other_obj):
+        distance = self.position.distance_to(other_obj.position)
+        return distance < self.radius + other_obj.radius
