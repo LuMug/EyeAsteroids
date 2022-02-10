@@ -1,4 +1,4 @@
-from game import EyeAsteroids
+from startgame import EyeAsteroids
 
 if __name__ == "__main__":
     eyeAsteroids = EyeAsteroids()
