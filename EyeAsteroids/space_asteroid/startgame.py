@@ -71,11 +71,6 @@ class EyeAsteroids:
         
 
         self.screen.fill((0,0,0))
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> def7030cf3c3e0de482c7d6684f309722a82eff0
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
 
