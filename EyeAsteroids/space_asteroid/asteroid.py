@@ -11,19 +11,6 @@ class Asteroid(Game):
 		)
 
 
-
-	def random_position(self, spaceship):
-		position = Vector2(
-				random.randrange(pygame.display.get_surface().get_width()),
-				random.randrange(pygame.display.get_surface().get_height()),
-			)
-		while True:
-			if position.distance_to(spaceship.position) > self.MIN_DISTANCE:
-				break
-
-		return position
-
-
 	def random_velocity(self):
-		speed = random.randint(20, 60)
-		return Vector2(speed)
+		speed = random.randint(1, 2)
+		return Vector2(speed, 0).rotate(random.randrange(360))

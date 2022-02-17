@@ -21,13 +21,11 @@ class EyeAsteroids:
         self.state_game = 0;
 
         #Oggetti del gioco
-        #self.asteroid = Asteroid((200,200))
-
         x, y = pygame.display.get_surface().get_size();
         self.spaceship = Spaceship((x/2, y/2))
         self.asteroids = []
 
-
+        # Genera gli asteroidi in modo casuale nella superficie
         MIN_DISTANCE = 200;
         for _ in range(8):
             while True:
@@ -78,7 +76,7 @@ class EyeAsteroids:
             game_object.draw(self.screen)
 
         pygame.display.flip()
-        
+        self.clock.tick(60)
 
 
 
@@ -96,8 +94,8 @@ class EyeAsteroids:
 
     def _process_game_logic(self):
         pass
-    #    for game_object in self._get_game_objects():
-    #        game_object.move()
+        for game_object in self._get_game_objects():
+            game_object.move()
     #    self._get_game_objects().draw(self.screen)
     #    self.spaceship.move()
         
