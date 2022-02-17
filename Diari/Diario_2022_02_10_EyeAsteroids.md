@@ -31,4 +31,4 @@ I problemi riscontrati durante questa giornata:
 Puntuali rispetto alla programmazione
 
 ## Programma di massima per la prossima giornata di lavoro
-Finire la schermata home, iniziare la schermata di informazione e completare il diagramma delle classi.
+Finire di stampare gli asteroidi nella schermata di gioco e implementare la classe Spaceship(navicella)
