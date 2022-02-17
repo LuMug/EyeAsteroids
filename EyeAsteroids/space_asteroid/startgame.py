@@ -71,7 +71,6 @@ class EyeAsteroids:
         
 
         self.screen.fill((0,0,0))
-        self.spaceship.draw(self.screen)
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
 
@@ -93,7 +92,6 @@ class EyeAsteroids:
         pass
 
     def _process_game_logic(self):
-        pass
         for game_object in self._get_game_objects():
             game_object.move()
     #    self._get_game_objects().draw(self.screen)
