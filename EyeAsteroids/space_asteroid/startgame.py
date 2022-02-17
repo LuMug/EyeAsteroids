@@ -71,8 +71,7 @@ class EyeAsteroids:
         
 
         self.screen.fill((0,0,0))
-        if self.spaceship:
-            self.spaceship.draw(self.screen)
+        
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
 

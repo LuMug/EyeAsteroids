@@ -6,8 +6,9 @@ from pygame.math import Vector2
 class Asteroid(Game):
 
 	def __init__(self, position):
+		sprite_name = "asteroid" + str(random.randint(0, 2))
 		super().__init__(
-			position, load_sprite("asteroid1"), self.random_velocity()
+			position, load_sprite(sprite_name), self.random_velocity()
 		)
 
 
