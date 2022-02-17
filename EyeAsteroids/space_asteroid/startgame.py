@@ -71,6 +71,11 @@ class EyeAsteroids:
         
 
         self.screen.fill((0,0,0))
+<<<<<<< HEAD
+=======
+        if self.spaceship:
+            self.spaceship.draw(self.screen)
+>>>>>>> a310d2333248d1d524d64d687ff8d8678cb8a481
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
 
@@ -89,11 +94,23 @@ class EyeAsteroids:
 
 
     def _draw_end(self):
-        pass
+        self.screen.fill((0,0,0))
+        pygame.draw.rect(self.screen,(255,255,255),(300,270,200,60))
+        self.wirte = writeText("Game Over",400,100,60,(255,255,255),self)
+        self.wirte = writeText("Classifica:",400,300,30,(0,0,0),self)
+        pygame.display.flip()
+        self.clock.tick(60)
 
     def _process_game_logic(self):
         for game_object in self._get_game_objects():
             game_object.move()
+
+        #collisione degli asteroidi con la navicella
+        if self.spaceship:
+            for asteroid in self.asteroids:
+                if asteroid.collides_with(self.spaceship):
+                    self.state_game = 3
+
     #    self._get_game_objects().draw(self.screen)
     #    self.spaceship.move()
         
@@ -101,6 +118,7 @@ class EyeAsteroids:
 
     def _get_game_objects(self):
         return [*self.asteroids, self.spaceship]
+
     
  	
     def _handle_input(self):
