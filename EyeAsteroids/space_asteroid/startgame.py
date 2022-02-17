@@ -1,4 +1,6 @@
 import pygame
+import random
+from pygame.math import Vector2
 from utils import load_sprite
 from utils import writeText
 from asteroid import Asteroid
@@ -23,11 +25,21 @@ class EyeAsteroids:
 
         x, y = pygame.display.get_surface().get_size();
         self.spaceship = Spaceship((x/2, y/2))
-
         self.asteroids = []
 
-        for _ in range(6):
-            self.asteroids.append(Asteroid(self.spaceship))
+
+        MIN_DISTANCE = 200;
+        for _ in range(8):
+            while True:
+                pos = Vector2(
+                        random.randrange(x),
+                        random.randrange(y)
+                    )
+                if(pos.distance_to(self.spaceship.position)> MIN_DISTANCE):
+                    break
+            self.asteroids.append(Asteroid(pos))
+
+
 
     def main_loop(self):
         while True:
@@ -83,9 +95,9 @@ class EyeAsteroids:
         pass
 
     def _process_game_logic(self):
-    #    pass
-        for game_object in self._get_game_objects():
-            game_object.move()
+        pass
+    #    for game_object in self._get_game_objects():
+    #        game_object.move()
     #    self._get_game_objects().draw(self.screen)
     #    self.spaceship.move()
         
