@@ -3,6 +3,8 @@ from utils import load_sprite
 from game import Game
 import random
 from pygame.math import Vector2
+
+
 class Asteroid(Game):
 
 	def __init__(self, position):
