@@ -6,7 +6,12 @@ from pygame.math import Vector2
 class Asteroid(Game):
 
 	def __init__(self, position):
-		sprite_name = "asteroid" + str(random.randint(0, 2))
+		random_sprite = [
+							["asteroid0",100],
+							["asteroid1",50],
+							["asteroid2",20]
+						]
+		sprite_name = random_sprite[random.randint(0, 2)][0];
 		super().__init__(
 			position, load_sprite(sprite_name), self.random_velocity()
 		)

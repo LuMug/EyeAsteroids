@@ -1,10 +1,13 @@
 import pygame
 import random
+from threading import Event, Thread
 from pygame.math import Vector2
 from utils import load_sprite
 from utils import writeText
 from asteroid import Asteroid
 from spaceship import Spaceship
+from utils import point_in_object
+from laser import Laser
 
 
 class EyeAsteroids:
@@ -15,42 +18,55 @@ class EyeAsteroids:
         self.screen = pygame.display.set_mode((800, 600))
         self.background = load_sprite("background", False)
         self.clock = pygame.time.Clock()
+        
         # font = pygame.font.Font('./assets/font/SFFunkOblique.ttf', 50)
 
         # stato del gioco: 0 -> home; 1 -> gioco; 2 -> info gioco; 3 -> fine gioco
         self.state_game = 0;
 
+        # attributo per definire quanti secondi servono per distruggere l'asteroide
+        self.life_asteroid = None
+
         #Oggetti del gioco
-        x, y = pygame.display.get_surface().get_size();
-        self.spaceship = Spaceship((x/2, y/2))
+        self.x, self.y = pygame.display.get_surface().get_size()
+        self.spaceship = Spaceship((self.x/2, self.y/2))
         self.asteroids = []
+        self.laser = Laser((self.x/2, self.y/2))
 
         # Genera gli asteroidi in modo casuale nella superficie
-        MIN_DISTANCE = 200;
-        for _ in range(8):
-            while True:
-                pos = Vector2(
-                        random.randrange(x),
-                        random.randrange(y)
-                    )
-                if(pos.distance_to(self.spaceship.position)> MIN_DISTANCE):
-                    break
-            self.asteroids.append(Asteroid(pos))
+        self.wait = 0
+        self.cancel_wait = self._wait_for_spawn(5)
 
+
+
+    def _wait_for_spawn(self, interval):
+        stopped = Event()
+        def loop():
+            while not stopped.wait(self.wait):
+                if self.state_game == 1:
+                    self._spawn_asteroids(10)
+                    if self.wait == 0:
+                        self.wait = interval
+
+        Thread(target=loop).start()    
+        return stopped.set
 
 
     def main_loop(self):
         while True:
+            self.clock.tick(60)
             self._handle_input()
 
             if self.state_game == 0:
                 self._draw_home()
+
             elif self.state_game == 1:
                 self._process_game_logic()
                 self._draw_game()
 
             elif self.state_game == 2:
                 self._draw_info()
+
             else:
                 self._draw_end()
 
@@ -65,17 +81,13 @@ class EyeAsteroids:
         self.wirte = writeText("EyeAsteroids",400,100,60,(255,255,255),self)
         self.wirte = writeText("START",400,300,40,(0,0,0),self)
         pygame.display.flip()
-        self.clock.tick(60)
 
     def _draw_game(self):
-        
-
         self.screen.fill((0,0,0))
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
-
+        self._laser_collision()
         pygame.display.flip()
-        self.clock.tick(60)
 
 
 
@@ -85,7 +97,6 @@ class EyeAsteroids:
         self.wirte = writeText("Informazioni",400,100,60,(255,255,255),self)
         self.wirte = writeText("...",400,300,40,(0,0,0),self)
         pygame.display.flip()
-        self.clock.tick(60)
 
 
     def _draw_end(self):
@@ -94,17 +105,19 @@ class EyeAsteroids:
         self.wirte = writeText("Game Over",400,100,60,(255,255,255),self)
         self.wirte = writeText("Classifica:",400,300,30,(0,0,0),self)
         pygame.display.flip()
-        self.clock.tick(60)
+
 
     def _process_game_logic(self):
         for game_object in self._get_game_objects():
             game_object.move()
+
 
         #collisione degli asteroidi con la navicella
         if self.spaceship:
             for asteroid in self.asteroids:
                 if asteroid.collides_with(self.spaceship):
                     self.state_game = 3
+                    self.cancel_wait()
 
     #    self._get_game_objects().draw(self.screen)
     #    self.spaceship.move()
@@ -114,6 +127,45 @@ class EyeAsteroids:
     def _get_game_objects(self):
         return [*self.asteroids, self.spaceship]
 
+    def _laser_collision(self):
+        for asteroid in self.asteroids:
+            if(point_in_object(pygame.mouse.get_pos(),asteroid)):
+                self.laser.draw(self.screen)
+
+                if self.life_asteroid == None:
+                    self.life_asteroid = pygame.time.get_ticks()
+                    print("a")
+                else:
+                    now = pygame.time.get_ticks()
+                    print(now)
+                    if now - self.life_asteroid >= 500: 
+                        self.asteroids.remove(asteroid)
+                        del asteroid
+                        self.life_asteroid = None
+
+
+    def _spawn_asteroids(self, quantity):
+        spawn_x = random.randrange(0, quantity)
+        spawn_y = quantity - spawn_x
+        for _ in range(spawn_x):
+            random_x = random.randrange(1,10)
+            if random_x <= 5:
+                x = 0 - 120
+            else:
+                x = self.x + 120
+            pos = Vector2(
+                x,
+                random.randrange(self.y)
+            )
+            self.asteroids.append(Asteroid(pos))
+        for _ in range(spawn_y):
+            random_y = random.randrange(1, 10)
+            if random_y <= 5:
+                y = 0 - 120
+            else:
+                y = self.y + 120
+            pos = Vector2(random.randrange(self.x),y)
+            self.asteroids.append(Asteroid(pos))
     
  	
     def _handle_input(self):
@@ -126,3 +178,14 @@ class EyeAsteroids:
                 self.state_game = 2
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 2:
                 self.state_game = 0
+
+
+    #for _ in range(spawn_y):
+            #while True:
+                #pos = Vector2(
+                        #random.randrange(self.x),
+                        #random.randrange(self.y)
+                    #)
+                #if(pos.distance_to(self.spaceship.position)> self.MIN_DISTANCE):
+                    #break
+            #self.asteroids.append(Asteroid(pos))

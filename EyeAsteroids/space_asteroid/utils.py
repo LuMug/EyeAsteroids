@@ -16,3 +16,7 @@ def writeText(string, coordx, coordy, fontSize,color, self):
     textRect = text.get_rect()
     textRect.center = (coordx, coordy)
     self.screen.blit(text, textRect)
+
+def point_in_object(point, obj):    
+    distance = obj.position.distance_to(point)
+    return distance < obj.radius
