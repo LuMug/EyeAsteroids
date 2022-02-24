@@ -24,8 +24,6 @@ class Spaceship(Game):
 				position_spaceship_y - coordinate_y,
 				coordinate_x - position_spaceship_x
 			) * 180 / pi
-
-		print(angle)
 		
 		#ruota l'immagine
 		rotated_surface = rotozoom(self.sprite, angle, 1.0)

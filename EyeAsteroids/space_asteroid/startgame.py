@@ -22,10 +22,14 @@ class EyeAsteroids:
         # stato del gioco: 0 -> home; 1 -> gioco; 2 -> info gioco; 3 -> fine gioco
         self.state_game = 0;
 
+        # attributo per definire quanti secondi servono per distruggere l'asteroide
+        self.life_asteroid = None
+
         #Oggetti del gioco
         x, y = pygame.display.get_surface().get_size();
         self.spaceship = Spaceship((x/2, y/2))
         self.asteroids = []
+        self.laser = Laser((x/2, y/2))
 
         # Genera gli asteroidi in modo casuale nella superficie
         MIN_DISTANCE = 200;
@@ -35,13 +39,12 @@ class EyeAsteroids:
                         random.randrange(x),
                         random.randrange(y)
                     )
-                if(pos.distance_to(self.spaceship.position)> MIN_DISTANCE):
+                if(pos.distance_to(self.spaceship.position) > MIN_DISTANCE):
                     break
-            self.asteroids.append(Asteroid(pos))
 
-        self.laser = Laser((x/2, y/2))
+            self.asteroids.append(Asteroid(pos))   
 
-
+        
 
     def main_loop(self):
         while True:
@@ -72,7 +75,6 @@ class EyeAsteroids:
         self.clock.tick(60)
 
     def _draw_game(self):
-        
 
         self.screen.fill((0,0,0))
         for game_object in self._get_game_objects():
@@ -82,9 +84,20 @@ class EyeAsteroids:
             if(point_in_object(pygame.mouse.get_pos(),asteroid)):
                 self.laser.draw(self.screen)
 
+                if self.life_asteroid == None:
+                    self.life_asteroid = pygame.time.get_ticks()
+                    print("a")
+                else:
+                    now = pygame.time.get_ticks()
+                    print(now)
+                    if now - self.life_asteroid >= 500: 
+                        self.asteroids.remove(asteroid)
+                        del asteroid
+                        self.life_asteroid = None
+            
+
         pygame.display.flip()
         self.clock.tick(60)
-
 
 
     def _draw_info(self):
