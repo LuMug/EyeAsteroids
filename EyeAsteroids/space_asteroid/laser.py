@@ -17,9 +17,5 @@ class Laser(Game):
 
 
 		# disegna la linea dal centro alla coordinata indicata
-<<<<<<< HEAD
-		pygame.draw.line(surface, (255,255,255), self.start_point, coordinate, width=2)
-=======
 		pygame.draw.line(surface, (255,255,255), self.start_point, coordinate, width=2)
 
->>>>>>> 12db091a2a8014f5fafda0add4d3e5be7d07e6e9

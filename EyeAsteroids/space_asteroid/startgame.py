@@ -35,7 +35,6 @@ class EyeAsteroids:
         self.x, self.y = pygame.display.get_surface().get_size()
         self.spaceship = Spaceship((self.x/2, self.y/2))
         self.asteroids = []
-<<<<<<< HEAD
         self.laser = Laser((self.x/2, self.y/2))
 
         # Genera gli asteroidi in modo casuale nella superficie
@@ -55,22 +54,6 @@ class EyeAsteroids:
 
         Thread(target=loop).start()    
         return stopped.set
-=======
-        self.laser = Laser((x/2, y/2))
-
-        # Genera gli asteroidi in modo casuale nella superficie
-        MIN_DISTANCE = 200;
-        for _ in range(8):
-            while True:
-                pos = Vector2(
-                        random.randrange(x),
-                        random.randrange(y)
-                    )
-                if(pos.distance_to(self.spaceship.position) > MIN_DISTANCE):
-                    break
-
-            self.asteroids.append(Asteroid(pos))   
->>>>>>> 12db091a2a8014f5fafda0add4d3e5be7d07e6e9
 
         
 
@@ -105,34 +88,12 @@ class EyeAsteroids:
         pygame.display.flip()
 
     def _draw_game(self):
-<<<<<<< HEAD
+
         self.screen.fill((0,0,0))
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
         self._laser_collision()
-=======
 
-        self.screen.fill((0,0,0))
-        for game_object in self._get_game_objects():
-            game_object.draw(self.screen)
-
-        for asteroid in self.asteroids:
-            if(point_in_object(pygame.mouse.get_pos(),asteroid)):
-                self.laser.draw(self.screen)
-
-                if self.life_asteroid == None:
-                    self.life_asteroid = pygame.time.get_ticks()
-                    print("a")
-                else:
-                    now = pygame.time.get_ticks()
-                    print(now)
-                    if now - self.life_asteroid >= 500: 
-                        self.asteroids.remove(asteroid)
-                        del asteroid
-                        self.life_asteroid = None
-            
-
->>>>>>> 12db091a2a8014f5fafda0add4d3e5be7d07e6e9
         pygame.display.flip()
 
 

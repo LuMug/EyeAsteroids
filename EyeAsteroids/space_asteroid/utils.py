@@ -20,8 +20,5 @@ def writeText(string, coordx, coordy, fontSize,color, self):
 
 def point_in_object(point, obj):    
     distance = obj.position.distance_to(point)
-<<<<<<< HEAD
     return distance < obj.radius
-=======
-    return distance < obj.radius
->>>>>>> 12db091a2a8014f5fafda0add4d3e5be7d07e6e9
+
