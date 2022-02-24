@@ -31,8 +31,8 @@ while True:
         print("x" +str(x))
         print("y" + str(y))
         cv2.circle(frame, (int(x), int(y)), 20, (255,0,0), 2)
-        cv2.putText(frame, "ratio x" + str(gaze.horizontal_ratio()), (20, 20), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
-        cv2.putText(frame, "ratio y" + str(gaze.vertical_ratio()), (20, 50), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
+        #cv2.putText(frame, "ratio x" + str(gaze.horizontal_ratio()), (20, 20), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
+        #cv2.putText(frame, "ratio y" + str(gaze.vertical_ratio()), (20, 50), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
     except:
         print("occhi non rilevati")
 
