@@ -1,5 +1,6 @@
 import pygame
 from pygame.image import load
+from pygame.math import Vector2
 
 def load_sprite(name, with_alpha=True):
     path = f"./assets/sprites/{name}.png"
@@ -16,3 +17,7 @@ def writeText(string, coordx, coordy, fontSize,color, self):
     textRect = text.get_rect()
     textRect.center = (coordx, coordy)
     self.screen.blit(text, textRect)
+
+def point_in_object(point, obj):    
+    distance = obj.position.distance_to(point)
+    return distance < obj.radius

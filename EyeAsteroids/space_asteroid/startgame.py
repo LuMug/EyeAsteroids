@@ -3,8 +3,10 @@ import random
 from pygame.math import Vector2
 from utils import load_sprite
 from utils import writeText
+from utils import point_in_object
 from asteroid import Asteroid
 from spaceship import Spaceship
+from laser import Laser
 
 
 class EyeAsteroids:
@@ -36,6 +38,8 @@ class EyeAsteroids:
                 if(pos.distance_to(self.spaceship.position)> MIN_DISTANCE):
                     break
             self.asteroids.append(Asteroid(pos))
+
+        self.laser = Laser((x/2, y/2))
 
 
 
@@ -73,6 +77,10 @@ class EyeAsteroids:
         self.screen.fill((0,0,0))
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
+
+        for asteroid in self.asteroids:
+            if(point_in_object(pygame.mouse.get_pos(),asteroid)):
+                self.laser.draw(self.screen)
 
         pygame.display.flip()
         self.clock.tick(60)

@@ -3,6 +3,7 @@ from pygame.math import Vector2
 from pygame.transform import rotozoom
 from utils import load_sprite
 from game import Game
+from math import atan2, pi
 
 
 
@@ -14,8 +15,17 @@ class Spaceship(Game):
 			position, load_sprite("spaceship"), Vector2(0)
 		)
 
+	# disegna la navicella e ruota in base alle coordinate del giocatore che osserva lo schermo
 	def draw(self, surface):
-		angle = 180
+		position_spaceship_x, position_spaceship_y = self.position
+		coordinate_x, coordinate_y = pygame.mouse.get_pos()
+
+		angle = atan2(
+				position_spaceship_y - coordinate_y,
+				coordinate_x - position_spaceship_x
+			) * 180 / pi
+
+		print(angle)
 		
 		#ruota l'immagine
 		rotated_surface = rotozoom(self.sprite, angle, 1.0)
