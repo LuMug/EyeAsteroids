@@ -7,10 +7,6 @@ from utils import writeText
 from utils import point_in_object
 from asteroid import Asteroid
 from spaceship import Spaceship
-<<<<<<< HEAD
-from utils import point_in_object
-=======
->>>>>>> 12db091a2a8014f5fafda0add4d3e5be7d07e6e9
 from laser import Laser
 
 
