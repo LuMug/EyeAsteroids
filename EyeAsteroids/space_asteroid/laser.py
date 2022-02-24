@@ -11,8 +11,11 @@ class Laser(Game):
 			position, load_sprite("laser"), Vector2(0)
 		)
 
-	def rotation(self):
-		pass
+	# disegna la linea, ricevendo la coordinata (x,y)
+	def draw(self, surface, coordinate):
+		w,h = surface.get_size()
 
-	def length(self):
-		pass
+		# disegna la linea dal centro alla coordinata indicata
+		pygame.draw.line(surface, (255,255,255), (w/2, h/2), coordinate)
+
+	

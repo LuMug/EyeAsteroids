@@ -16,6 +16,10 @@ class Spaceship(Game):
 
 	def draw(self, surface):
 		angle = 180
+		
+		#ruota l'immagine
 		rotated_surface = rotozoom(self.sprite, angle, 1.0)
+
+		#coordinate dell'immagine ruotato
 		blit_position = self.position - (Vector2(rotated_surface.get_size())/2)
 		surface.blit(rotated_surface, blit_position)
