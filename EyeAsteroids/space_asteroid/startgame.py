@@ -37,6 +37,9 @@ class EyeAsteroids:
         self.wait = 0
         self.cancel_wait = self._wait_for_spawn(5)
 
+        #punteggio
+        self.points = 0
+
 
 
     def _wait_for_spawn(self, interval):
@@ -86,10 +89,10 @@ class EyeAsteroids:
     def _draw_game(self):
 
         self.screen.fill((0,0,0))
+        self.wirte = writeText("Punteggio: " + str(self.points),400,10,20,(255,255,255),self)
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
         self._laser_collision()
-
         pygame.display.flip()
 
 
@@ -136,12 +139,12 @@ class EyeAsteroids:
 
                 if self.life_asteroid == None:
                     self.life_asteroid = pygame.time.get_ticks()
-                    print("a")
                 else:
                     now = pygame.time.get_ticks()
-                    print(now)
                     if now - self.life_asteroid >= 500: 
                         self.asteroids.remove(asteroid)
+
+                        self.points += asteroid.point
                         del asteroid
                         self.life_asteroid = None
 
@@ -180,14 +183,3 @@ class EyeAsteroids:
                 self.state_game = 2
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 2:
                 self.state_game = 0
-
-
-    #for _ in range(spawn_y):
-            #while True:
-                #pos = Vector2(
-                        #random.randrange(self.x),
-                        #random.randrange(self.y)
-                    #)
-                #if(pos.distance_to(self.spaceship.position)> self.MIN_DISTANCE):
-                    #break
-            #self.asteroids.append(Asteroid(pos))
