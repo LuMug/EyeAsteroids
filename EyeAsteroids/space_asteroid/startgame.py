@@ -8,6 +8,7 @@ from utils import point_in_object
 from asteroid import Asteroid
 from spaceship import Spaceship
 from laser import Laser
+from database import createDatabase
 
 
 class EyeAsteroids:
@@ -18,6 +19,7 @@ class EyeAsteroids:
         self.screen = pygame.display.set_mode((800, 600))
         self.background = load_sprite("background", False)
         self.clock = pygame.time.Clock()
+        createDatabase()
         
         # font = pygame.font.Font('./assets/font/SFFunkOblique.ttf', 50)
 
@@ -179,11 +181,11 @@ class EyeAsteroids:
             pos = Vector2(random.randrange(self.x),y)
             self.asteroids.append(Asteroid(pos))
     
- 	
+    
     def _handle_input(self):
-    	for event in pygame.event.get():
+        for event in pygame.event.get():
             if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
-            	quit()
+                quit()
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN) and self.state_game == 0:
                 self.state_game = 1
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 0:
@@ -203,4 +205,3 @@ class EyeAsteroids:
                 #if(pos.distance_to(self.spaceship.position)> self.MIN_DISTANCE):
                     #break
             #self.asteroids.append(Asteroid(pos))
-
