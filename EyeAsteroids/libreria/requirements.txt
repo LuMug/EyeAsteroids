@@ -1,0 +1,3 @@
+numpy == 1.19.3
+opencv_python == 4.5.4.60
+dlib == 19.16.0

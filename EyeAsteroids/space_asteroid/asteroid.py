@@ -13,9 +13,11 @@ class Asteroid(Game):
 							["asteroid1",50],
 							["asteroid2",20]
 						]
-		sprite_name = random_sprite[random.randint(0, 2)][0];
+		rand = random.randint(0, 2)
+		self.sprite_name = random_sprite[rand][0]
+		self.point = random_sprite[rand][1]
 		super().__init__(
-			position, load_sprite(sprite_name), self.random_velocity()
+			position, load_sprite(self.sprite_name), self.random_velocity()
 		)
 
 		# attributo per definire quanti secondi servono per distruggere l'asteroide
@@ -25,3 +27,4 @@ class Asteroid(Game):
 	def random_velocity(self):
 		speed = random.randint(1, 2)
 		return Vector2(speed, 0).rotate(random.randrange(360))
+
