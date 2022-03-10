@@ -7,7 +7,7 @@ from pygame.math import Vector2
 
 class Asteroid(Game):
 
-	def __init__(self, position):
+	def __init__(self, position, angle):
 		random_sprite = [
 							["asteroid0",100],
 							["asteroid1",50],
@@ -17,14 +17,15 @@ class Asteroid(Game):
 		self.sprite_name = random_sprite[rand][0]
 		self.point = random_sprite[rand][1]
 		super().__init__(
-			position, load_sprite(self.sprite_name), self.random_velocity()
+			position, load_sprite(self.sprite_name), self.random_velocity(angle)
 		)
 
 		# attributo per definire quanti secondi servono per distruggere l'asteroide
 		self.life = 500
 
 
-	def random_velocity(self):
+	def random_velocity(self, angle):
 		speed = random.randint(1, 2)
-		return Vector2(speed, 0).rotate(random.randrange(360))
+		return Vector2(speed, 0).rotate(angle)
+
 

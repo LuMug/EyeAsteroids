@@ -161,25 +161,30 @@ class EyeAsteroids:
     def _spawn_asteroids(self, quantity):
         spawn_x = random.randrange(0, quantity)
         spawn_y = quantity - spawn_x
+        angle = 0
         for _ in range(spawn_x):
             random_x = random.randrange(1,10)
             if random_x <= 5:
                 x = 0 - 120
+                angle = random.randint(285,435)
             else:
                 x = self.x + 120
+                angle = random.randint(105,255)
             pos = Vector2(
                 x,
                 random.randrange(self.y)
             )
-            self.asteroids.append(Asteroid(pos))
+            self.asteroids.append(Asteroid(pos, angle))
         for _ in range(spawn_y):
-            random_y = random.randrange(1, 10)
+            random_y = random.randint(1, 10)
             if random_y <= 5:
                 y = 0 - 120
+                angle = random.randrange(15,165)
             else:
                 y = self.y + 120
+                angle = random.randint(195,345)
             pos = Vector2(random.randrange(self.x),y)
-            self.asteroids.append(Asteroid(pos))
+            self.asteroids.append(Asteroid(pos, angle))
     
     
     def _handle_input(self):
