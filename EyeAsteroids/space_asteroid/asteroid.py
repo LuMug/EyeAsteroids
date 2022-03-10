@@ -27,5 +27,3 @@ class Asteroid(Game):
 	def random_velocity(self, angle):
 		speed = random.randint(1, 2)
 		return Vector2(speed, 0).rotate(angle)
-
-
