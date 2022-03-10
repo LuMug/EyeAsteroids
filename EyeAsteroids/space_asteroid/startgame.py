@@ -24,8 +24,8 @@ class EyeAsteroids:
         # stato del gioco: 0 -> home; 1 -> gioco; 2 -> info gioco; 3 -> fine gioco
         self.state_game = 0;
 
-        # attributo per definire quanti secondi servono per distruggere l'asteroide
-        self.life_asteroid = None
+        # attributo per calcolare la durata tra laser e asteroide
+        self.last_time = None
 
         #Oggetti del gioco
         self.x, self.y = pygame.display.get_surface().get_size()
@@ -79,8 +79,8 @@ class EyeAsteroids:
     def _draw_home(self):
         self.screen.blit(self.background, (0, 0))
         pygame.draw.rect(self.screen,(255,255,255),(300,270,200,60))
-        self.wirte = writeText("EyeAsteroids",400,100,60,(255,255,255),self)
-        self.wirte = writeText("START",400,300,40,(0,0,0),self)
+        self.title = writeText("EyeAsteroids",400,100,60,(255,255,255),self)
+        self.button = writeText("START",400,300,40,(0,0,0),self)
         pygame.display.flip()
 
     def _draw_game(self):
@@ -88,6 +88,7 @@ class EyeAsteroids:
         self.screen.fill((0,0,0))
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
+
         self._laser_collision()
 
         pygame.display.flip()
@@ -121,29 +122,35 @@ class EyeAsteroids:
                     self.state_game = 3
                     self.cancel_wait()
 
-    #    self._get_game_objects().draw(self.screen)
-    #    self.spaceship.move()
-        
-
 
     def _get_game_objects(self):
         return [*self.asteroids, self.spaceship]
 
+
     def _laser_collision(self):
+        
+        asteroid = self._collide_any_asteroid()
+        if(asteroid != None):  
+            self.laser.draw(self.screen)
+
+            if self.last_time == None:
+                self.last_time = pygame.time.get_ticks()
+            
+            now = pygame.time.get_ticks()
+            delta = now - self.last_time;
+            asteroid.life -= delta
+            self.last_time = now
+            if asteroid.life <= 0: 
+                self.asteroids.remove(asteroid)
+                del asteroid
+        else:
+            self.last_time = None
+                      
+    def _collide_any_asteroid(self):
         for asteroid in self.asteroids:
             if(point_in_object(pygame.mouse.get_pos(),asteroid)):
-                self.laser.draw(self.screen)
-
-                if self.life_asteroid == None:
-                    self.life_asteroid = pygame.time.get_ticks()
-                    print("a")
-                else:
-                    now = pygame.time.get_ticks()
-                    print(now)
-                    if now - self.life_asteroid >= 500: 
-                        self.asteroids.remove(asteroid)
-                        del asteroid
-                        self.life_asteroid = None
+                return asteroid;
+        return None;
 
 
     def _spawn_asteroids(self, quantity):
@@ -180,6 +187,8 @@ class EyeAsteroids:
                 self.state_game = 2
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 2:
                 self.state_game = 0
+            # bottone start all'inizio del gioco
+            #elif event.type == pygame.MOUSEBUTTONUP and pygame.mouse.get_pressed()[0] and :
 
 
     #for _ in range(spawn_y):
