@@ -8,6 +8,7 @@ from utils import point_in_object
 from asteroid import Asteroid
 from spaceship import Spaceship
 from laser import Laser
+from database import createDatabase
 
 
 class EyeAsteroids:
@@ -18,6 +19,7 @@ class EyeAsteroids:
         self.screen = pygame.display.set_mode((800, 600))
         self.background = load_sprite("background", False)
         self.clock = pygame.time.Clock()
+        createDatabase()
         
         # font = pygame.font.Font('./assets/font/SFFunkOblique.ttf', 50)
 
