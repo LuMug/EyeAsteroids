@@ -37,4 +37,4 @@ I problemi riscontrati durante questa giornata:
 Leggermente avanti rispetto alla programmazione
 
 ## Programma di massima per la prossima giornata di lavoro
-Ottimizzare la durata della vita degli asteroidi
+Ottimizzare la durata della vita degli asteroidi e creare database per il punteggio
