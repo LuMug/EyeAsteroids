@@ -20,6 +20,9 @@ class Asteroid(Game):
 			position, load_sprite(self.sprite_name), self.random_velocity(angle)
 		)
 
+		# attributo per definire quanti secondi servono per distruggere l'asteroide
+		self.life = 500
+
 
 	def random_velocity(self, angle):
 		speed = random.randint(1, 2)
