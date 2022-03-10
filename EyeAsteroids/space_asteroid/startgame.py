@@ -152,23 +152,8 @@ class EyeAsteroids:
     def _collide_any_asteroid(self):
         for asteroid in self.asteroids:
             if(point_in_object(pygame.mouse.get_pos(),asteroid)):
-<<<<<<< HEAD
                 return asteroid;
         return None;
-=======
-                self.laser.draw(self.screen)
-
-                if self.life_asteroid == None:
-                    self.life_asteroid = pygame.time.get_ticks()
-                else:
-                    now = pygame.time.get_ticks()
-                    if now - self.life_asteroid >= 500: 
-                        self.asteroids.remove(asteroid)
-
-                        self.points += asteroid.point
-                        del asteroid
-                        self.life_asteroid = None
->>>>>>> fd6da04768bce9b54e8d0ed6243e8505805b6b98
 
 
     def _spawn_asteroids(self, quantity):
@@ -204,7 +189,6 @@ class EyeAsteroids:
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 0:
                 self.state_game = 2
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 2:
-<<<<<<< HEAD
                 self.state_game = 0
             # bottone start all'inizio del gioco
             #elif event.type == pygame.MOUSEBUTTONUP and pygame.mouse.get_pressed()[0] and :
@@ -219,6 +203,4 @@ class EyeAsteroids:
                 #if(pos.distance_to(self.spaceship.position)> self.MIN_DISTANCE):
                     #break
             #self.asteroids.append(Asteroid(pos))
-=======
-                self.state_game = 0
->>>>>>> fd6da04768bce9b54e8d0ed6243e8505805b6b98
+
