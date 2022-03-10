@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 
 
 def createDatabase():
@@ -13,23 +14,25 @@ def createDatabase():
    cur.execute(score)
    con.close()
 
-def _insert_result(score, player):
-  conn = sqlite3.connect('./space_asteroid/score.db')
-  date = datetime.today().strftime('%Y-%m-%d')
-  conn.execute(f"INSERT INTO Score (score, data, nome) VALUES ({score}, {date}, {player})")
-  conn.commit()
-  conn.close()
+def insertResult(score, player):
+   conn = sqlite3.connect('./space_asteroid/score.db')
+   date = datetime.today().strftime('%Y-%m-%d')
+   cur = conn.cursor()
+   cur.execute(f"INSERT INTO score (score, data, nome) VALUES ({score}, '{date}', '{player}')")
+   conn.commit()
+   conn.close()
 
-def _show_result():
-  conn = sqlite3.connect('./space_asteroid/score.db')
-  cor = cur.cursor()
-  cur.execute("SELECT * FROM Score")
-  rows = cur.fetchall()
+def showResult():
+   conn = sqlite3.connect('./space_asteroid/score.db')
+   cur = conn.cursor()
+   cur.execute("SELECT nome, score FROM Score ORDER BY score DESC LIMIT 5")
+   rows = cur.fetchall()
 
-  for row in rows:
-      print(row)
+   #for row in rows:
+   #   print(row)
+   return rows
 
-  conn.commit()
-  conn.close()
+   conn.commit()
+   conn.close()
 
 
