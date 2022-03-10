@@ -8,7 +8,7 @@ from utils import point_in_object
 from asteroid import Asteroid
 from spaceship import Spaceship
 from laser import Laser
-from database import createDatabase
+from database import *
 
 
 class EyeAsteroids:
@@ -37,11 +37,12 @@ class EyeAsteroids:
 
         # Genera gli asteroidi in modo casuale nella superficie
         self.wait = 0
-        self.cancel_wait = self._wait_for_spawn(5)
+        self.cancel_wait = self._wait_for_spawn(6)
 
         #punteggio
         self.points = 0
 
+        self.player = ""
 
 
     def _wait_for_spawn(self, interval):
@@ -49,7 +50,8 @@ class EyeAsteroids:
         def loop():
             while not stopped.wait(self.wait):
                 if self.state_game == 1:
-                    self._spawn_asteroids(10)
+                    self.wait = random.randint(2, 5)
+                    self._spawn_asteroids(self.wait * 2)
                     if self.wait == 0:
                         self.wait = interval
 
@@ -72,7 +74,8 @@ class EyeAsteroids:
 
             elif self.state_game == 2:
                 self._draw_info()
-
+            elif self.state_game == 3:
+                self._draw_insert_name()
             else:
                 self._draw_end()
 
@@ -83,15 +86,15 @@ class EyeAsteroids:
 
     def _draw_home(self):
         self.screen.blit(self.background, (0, 0))
-        pygame.draw.rect(self.screen,(255,255,255),(300,270,200,60))
         self.title = writeText("EyeAsteroids",400,100,60,(255,255,255),self)
-        self.button = writeText("START",400,300,40,(0,0,0),self)
+        self.button = writeText("Press ENTER to start",400,300,40,(255,255,255),self)
+        self.info = writeText("Press [i] for info",self.x - 125,self.y - 20,25,(255,255,255),self)
         pygame.display.flip()
 
     def _draw_game(self):
 
         self.screen.fill((0,0,0))
-        self.wirte = writeText("Punteggio: " + str(self.points),400,10,20,(255,255,255),self)
+        self.wirte = writeText("Score: " + str(self.points),400,10,20,(255,255,255),self)
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
 
@@ -102,16 +105,29 @@ class EyeAsteroids:
     def _draw_info(self):
         self.screen.fill((0,0,0))
         pygame.draw.rect(self.screen,(255,255,255),(300,270,200,60))
-        self.wirte = writeText("Informazioni",400,100,60,(255,255,255),self)
+        self.wirte = writeText("Info",400,100,60,(255,255,255),self)
         self.wirte = writeText("...",400,300,40,(0,0,0),self)
         pygame.display.flip()
 
 
+    def _draw_insert_name(self):
+        self.screen.fill((0,0,0))
+        self.wirte = writeText("Game Over",400,100,60,(255,255,255),self)
+        self.wirte = writeText("Type your name:",400,350,30,(255,255,255),self) 
+        self.wirte = writeText(self.player+"_",400,400,30,(255,255,255),self) 
+        pygame.display.flip()
+
     def _draw_end(self):
         self.screen.fill((0,0,0))
-        pygame.draw.rect(self.screen,(255,255,255),(300,270,200,60))
+        #pygame.draw.rect(self.screen,(255,255,255),(50,200,self.x - 100,350))
         self.wirte = writeText("Game Over",400,100,60,(255,255,255),self)
-        self.wirte = writeText("Classifica:",400,300,30,(0,0,0),self)
+        self.wirte = writeText("Ranking:",400,225,30,(255,255,255),self)
+        rows = showResult()
+        
+        pos_y = 300
+        for row in rows:
+            self.wirte = writeText(f"{row[0]}   {row[1]}",400,pos_y,30,(255,255,255),self)
+            pos_y += 50
         pygame.display.flip()
 
 
@@ -145,7 +161,8 @@ class EyeAsteroids:
             delta = now - self.last_time;
             asteroid.life -= delta
             self.last_time = now
-            if asteroid.life <= 0: 
+            if asteroid.life <= 0:
+                self.points += asteroid.point
                 self.asteroids.remove(asteroid)
                 del asteroid
         else:
@@ -197,16 +214,22 @@ class EyeAsteroids:
                 self.state_game = 2
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 2:
                 self.state_game = 0
-            # bottone start all'inizio del gioco
-            #elif event.type == pygame.MOUSEBUTTONUP and pygame.mouse.get_pressed()[0] and :
+            elif (self.state_game == 3):
 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        insertResult(self.points, self.player)
+                        self.player = ''
+                        self.state_game = 4
+                    elif event.key == pygame.K_BACKSPACE:
+                        self.player = self.player[:-1]
+                    else:
+                        self.player += event.unicode
+            elif (event.type == pygame.KEYDOWN and (event.key == pygame.K_r or event.key == pygame.K_h)) and self.state_game == 4:
+                eyeAsteroids = EyeAsteroids()
+                eyeAsteroids.main_loop()
+                del self
 
-    #for _ in range(spawn_y):
-            #while True:
-                #pos = Vector2(
-                        #random.randrange(self.x),
-                        #random.randrange(self.y)
-                    #)
-                #if(pos.distance_to(self.spaceship.position)> self.MIN_DISTANCE):
-                    #break
-            #self.asteroids.append(Asteroid(pos))
+                self.state_game = 1
+            elif (event.type == pygame.KEYDOWN and event.key == pygame.K_h) and self.state_game == 4:
+                self.state_game = 0
