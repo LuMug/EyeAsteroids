@@ -298,7 +298,7 @@ Questa classe serve per definire la navicella nel gioco ereditando la classe `Ga
 
 Questa classe ha solo posizione che viene definito dal parametro del costruttore, lo sprite e la velocita che è 0, utilizzando il costruttore del superclasse.
 
-Il metodo draw(surface) viene ridefinito (Override), stampa la navicella e ruota in base alle coordinate del giocatore che osserva lo schermo utilizzando la funzione `atan2()` moltiplicato per 180 e dividendo per la costante pigreco ottenendo l'angolo in gradi:
+Il metodo draw(surface) viene ridefinito (Override), stampa la navicella e ruota in base alle coordinate del giocatore che osserva lo schermo utilizzando la funzione `atan2()` moltiplicato per 180 e dividendo per la costante pigreco ottenendo l'angolo in gradi. Poi ruota l'immagine utilizzando la funzione `rotozoom()` con lo sprite e l'angolo per ottenere l'immagine ruotata e poi stamparlo:
 ```python
 def draw(self, surface):
     position_spaceship_x, position_spaceship_y = self.position
