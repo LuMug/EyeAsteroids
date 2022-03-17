@@ -244,12 +244,29 @@ Questa classe rappresenta gli oggetti presenti nel gioco in modo generico, che v
 
 Questa classe necessita la posizione con le coordinate, lo sprite per definire l'immagine, il raggio ottenendo la metà larghezza dell'immagine e infine la velocità.
 
-La posizione dell'oggetto non viene definito le coordinate in alto e sinistra dell'immagine come default, ma viene definito le coordinate nel centro dell'immagine per semplificare eventuali rotazioni e collisioni tra gli oggetti che sono a forma del cerchio (per esempio asteroide) che viene implementato manualmente invece dei rettangoli siccome che nella libreria pygame non c'è.
+La posizione dell'oggetto non viene definito le coordinate in alto e sinistra dell'immagine come default, ma viene definito le coordinate nel centro dell'immagine per semplificare eventuali rotazioni e collisioni tra gli oggetti che sono a forma del cerchio (per esempio asteroide) invece dei rettangoli che viene implementato manualmente creando la funzione `collides_with()` siccome che nella libreria pygame non c'è.
 
-In questa classe ci sono tre metodi:
-- `draw(self, surface)`: serve per stampare l'oggetto calcolando la posizione dell'oggetto sottrando il raggio;
-- `move(self)`: Aggiorna la posizione dell'oggetto sommando il valore della velocità;
-- `collides_with(self, other_obj)`: calcola la collisione tra gli oggetti, calcolando se la distanza tra loro è più piccolo della somma dei raggi di entrambi oggetti.
+Il metodo `draw(surface)` serve per stampare l'oggetto calcolando la posizione dell'oggetto sottrando il raggio:
+```py
+def draw(self, surface):
+    blit_position = self.position - Vector2(self.radius)
+    surface.blit(self.sprite, blit_position)
+```
+
+
+Mentre il metodo `move()` aggiorna la posizione dell'oggetto sommando il valore della velocità:
+```py
+def move(self):
+    self.position = self.position + self.velocity
+```
+
+
+E infine il metodo `collides_with(other_obj)` calcola la collisione tra gli oggetti, calcolando se la distanza tra loro utilizzando la funzione `distance_to()` è più piccolo della somma dei raggi di entrambi oggetti:
+```py
+def collides_with(self, other_obj):
+    distance = self.position.distance_to(other_obj.position)
+    return distance < self.radius + other_obj.radius
+```
 
 ## Test
 
