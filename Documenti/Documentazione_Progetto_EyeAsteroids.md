@@ -244,7 +244,7 @@ Questa classe rappresenta gli oggetti presenti nel gioco in modo generico, che v
 
 Questa classe necessita la posizione con le coordinate, lo sprite per definire l'immagine, il raggio ottenendo la metà larghezza dell'immagine e infine la velocità.
 
-La posizione dell'oggetto non viene definito le coordinate in alto e sinistra dell'immagine come default, ma viene definito le coordinate nel centro dell'immagine per semplificare eventuali rotazioni e collisioni tra gli oggetti che sono a forma del cerchio (per esempio asteroide) invece dei rettangoli che viene implementato manualmente creando la funzione `collides_with()` siccome che nella libreria pygame non c'è.
+La posizione dell'oggetto non viene definito le coordinate in alto e sinistra dell'immagine come default, ma viene definito le coordinate nel centro dell'immagine per semplificare eventuali rotazioni e collisioni tra gli oggetti che sono a forma del cerchio (per esempio asteroide)che viene implementato manualmente creando la funzione `collides_with()` siccome che nella libreria pygame non c'è.
 
 Il metodo `draw(surface)` serve per stampare l'oggetto calcolando la posizione dell'oggetto sottrando il raggio:
 ```py
