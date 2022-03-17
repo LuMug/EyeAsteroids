@@ -1,5 +1,0 @@
-https://onlinepngtools.com/resize-png
-https://www.w3schools.com/python/python_try_except.asp
-https://www.w3schools.com/python/ref_random_randrange.asp
-https://stackoverflow.com/questions/36653519/how-do-i-get-the-size-width-x-height-of-my-pygame-window#:~:text=You%20can%20get%20the%20windows,get_height()%20on%20the%20surface.
-https://app.diagrams.net/
