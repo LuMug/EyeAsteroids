@@ -10,10 +10,11 @@
 |09:05 - 09:15 | Riunione organizzativa del team                        		       |Castelli e Pasquini e Aloise|
 |09:15 - 12.20 | Lavoro con libreria per tracciare gli occhi				  	           |Aloise                      |
 |09:15 - 10:30 | Ottimizzare il calcolo della perdita della vita dal laser         |Pasquini                    |
+|09:15 - 12:20 | Ottimizzare spawn asteroidi direzionandoli verso il centro        |Castelli                    |
 |13:15 - 13.40 | Creazione database sql lite                				  	           |Aloise                      |
 |13:40 - 14:00 | Comandi per inserire e mostrare i dati per il gioco  	           |Pasquini                    |
 |14:00 - 16:15 | Possibilità di inserire nome in game over e mostrare la classifica|Pasquini                    |
-|13:40 - 16.20 | Libreria occhi direzione                   				  	           |Aloise                      |
+|13:40 - 16.20 | Libreria occhi direzione                   				  	           |Aloise e Castelli           |
 
 
 
