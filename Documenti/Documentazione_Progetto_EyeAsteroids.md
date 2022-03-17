@@ -292,49 +292,18 @@ facilmente generalizzabili o sono specifici di un caso particolare? ecc
 ### Considerazioni personali
   Cosa ho imparato in questo progetto? ecc
 
-## Bibliografia
-
-### Bibliografia per articoli di riviste
-1.  Cognome e nome (o iniziali) dell’autore o degli autori, o nome
-    dell’organizzazione,
-
-2.  Titolo dell’articolo (tra virgolette),
-
-3.  Titolo della rivista (in italico),
-
-4.  Anno e numero
-
-5.  Pagina iniziale dell’articolo,
-
-### Bibliografia per libri
-
-
-1.  Cognome e nome (o iniziali) dell’autore o degli autori, o nome
-    dell’organizzazione,
-
-2.  Titolo del libro (in italico),
-
-3.  ev. Numero di edizione,
-
-4.  Nome dell’editore,
-
-5.  Anno di pubblicazione,
-
-6.  ISBN.
 
 ### Sitografia
 
-1.  URL del sito (se troppo lungo solo dominio, evt completo nel
-    diario),
-
-2.  Eventuale titolo della pagina (in italico),
-
-3.  Data di consultazione (GG-MM-AAAA).
-
-**Esempio:**
-
--   http://standards.ieee.org/guides/style/section7.html, *IEEE
-    Standards Style Manual*, 07-06-2008.
+- https://stackoverflow.com/, *StackOverFlow*;
+- https://github.com/antoinelame/GazeTracking, *GazeTracking*;
+- https://www.codingcreativo.it/pygame/, *Pygame*;
+- https://docs.python.org/3/library/sqlite3.html, *sqlite*;
+- https://www.sqlitetutorial.net/sqlite-python/, *sqlite*;
+- https://www.sqlite.org/datatype3.html, *sqlite*;
+- https://www.tutorialspoint.com/sqlite/, *sqlite*;
+- https://www.geeksforgeeks.org/python-sqlite-create-table/, *sqlite*;
+- https://linuxhint.com/create-table-in-sqlite-using-if-not-exists-statement/, *sqlite*;
 
 ## Allegati
 
