@@ -249,7 +249,7 @@ La posizione dell'oggetto non viene definito le coordinate in alto e sinistra de
 In questa classe ci sono tre metodi:
 - `draw(self, surface)`: serve per stampare l'oggetto calcolando la posizione dell'oggetto sottrando il raggio;
 - `move(self)`: Aggiorna la posizione dell'oggetto sommando il valore della velocità;
-- `collides_with(self, other_obj)`calcola la collisione tra gli oggetti, calcolando se la distanza tra loro è più piccolo della somma dei raggi di entrambi oggetti.
+- `collides_with(self, other_obj)`: calcola la collisione tra gli oggetti, calcolando se la distanza tra loro è più piccolo della somma dei raggi di entrambi oggetti.
 
 ## Test
 
