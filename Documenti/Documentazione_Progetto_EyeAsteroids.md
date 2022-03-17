@@ -317,6 +317,20 @@ def draw(self, surface):
     surface.blit(rotated_surface, blit_position)
 ```
 
+### Classe Laser
+
+Questa classe serve per definire il laser, che viene utilizzato dalla navicella per sparare contro gli asteroidi.
+
+Questa classe necessita solamente il punto iniziale (in questo caso, centro).
+
+Il metodo `draw(surface)` stampa la linea utilizzando il colore (in questo caso è bianco), il punto di partenza definito dall'attributo di questa classe, punto finale definito dalle coordinate del giocatore che osserva lo schermo e infine il parametro `width` che rappresenta lo spessore della linea.
+```py
+def draw(self, surface):    
+    coordinate = pygame.mouse.get_pos()
+
+    pygame.draw.line(surface, (255,255,255), self.start_point, coordinate, width=2)
+```
+
 
 ## Test
 
