@@ -155,87 +155,66 @@ funzionalità del prodotto.
 
 ### Pianificazione
 
-Prima di stabilire una pianificazione bisogna avere almeno una vaga idea
-del modello di sviluppo che si intende adottare. In questa sezione
-bisognerà inserire il modello concettuale di sviluppo che si seguirà
-durante il progetto. Gli elementi di riferimento per una buona
-pianificazione derivano da una scomposizione top-down della problematica
-del progetto.
+Per la pianificazione alleghiamo il Gantt preventivo da noi stabilito:
+![Ganttpreventivo](../Documenti/Gantt/Gantt_Preventivo_Completo.png)
+> Gantt preventivo
 
-La pianificazione può essere rappresentata mediante un diagramma di
-Gantt.
-
-Se si usano altri metodi di pianificazione (es scrum), dovranno apparire
-in questo capitolo.
-
+Come si può notare abbiamo deciso di dediare molto tempo a come sparare con gli occhi dato che é una cosa che non abbiamo mai fatto abbiamo ritenuto opportuno dare questa quantità di tempo.
 ### Analisi dei mezzi
 
-Elencare e *descrivere* i mezzi disponibili per la realizzazione del
-progetto. Ricordarsi di sempre descrivere nel dettaglio le versioni e il
-modello di riferimento.
+**Software**
+- Python
+- GazeTracking
+- Pygame
 
-SDK, librerie, tools utilizzati per la realizzazione del progetto e
-eventuali dipendenze.
-
-Su quale piattaforma dovrà essere eseguito il prodotto? Che hardware
-particolare è coinvolto nel progetto? Che particolarità e limitazioni
-presenta? Che hw sarà disponibile durante lo sviluppo?
+**Hardware**
+- Laptop personali
+- PC scolastici
+- PC dato dai sistemisti
+- Webcam
 
 ## Progettazione
-
-Questo capitolo descrive esaustivamente come deve essere realizzato il
-prodotto fin nei suoi dettagli. Una buona progettazione permette
-all’esecutore di evitare fraintendimenti e imprecisioni
-nell’implementazione del prodotto.
-
-### Design dell’architettura del sistema
-
-Descrive:
-
--   La struttura del programma/sistema lo schema di rete...
-
--   Gli oggetti/moduli/componenti che lo compongono.
-
--   I flussi di informazione in ingresso ed in uscita e le
-    relative elaborazioni. Può utilizzare *diagrammi di flusso dei
-    dati* (DFD).
-
--   Eventuale sitemap
-
 ### Design dei dati e database
+La prima versione del databse conteneva due tabelle una player e una score ma in fase di implementazione ci siamo accorti che era davvero inutile avere due tabelle quindi abbiamo deciso di tenerne solo una e di fargli qualche modifica :
+![Databae](Progettazione/Database/database.PNG)
+> Database
 
-Descrizione delle strutture di dati utilizzate dal programma in base
-agli attributi e le relazioni degli oggetti in uso.
+In questa Tabella viene salvati tutti i dati della partita, i dati più imprtanti sono il nome e lo score. Abbiamo deciso di slavare anche la data per eventuali sviluppi futuri.
 
-### Schema E-R, schema logico e descrizione.
-
-Se il diagramma E-R viene modificato, sulla doc dovrà apparire l’ultima
-versione, mentre le vecchie saranno sui diari.
 
 ### Design delle interfacce
 
-Descrizione delle interfacce interne ed esterne del sistema e
-dell’interfaccia utente. La progettazione delle interfacce è basata
-sulle informazioni ricavate durante la fase di analisi e realizzata
-tramite mockups.
+### Schermata Home
+La prima interfaccia che abbiamo definito è stata quella generale, ovvero l'interfaccia che l'utente avrebbe visto una volta avviato il gioco:
+![Progettazione](Progettazione/Interfaccie/home.PNG)
+> Schermata home
 
-### Design procedurale
+Siamo andatia vedere la schermata di partenza classica del gioco e l'abbiamo leggermente rivisitata abbiamo deciso di mettere la classifica nella home e di avere due tasti uno per giocare e l'altro per avere semplicemtne le informazioni
 
-Descrive i concetti dettagliati dell’architettura/sviluppo utilizzando
-ad esempio:
+### Schermata Info
+![Progettazione](Progettazione/Interfaccie/info.PNG)
+> Schermata info
 
--   Diagrammi di flusso e Nassi.
+Abbiamo pensato a una schermata molto minimalista cercando di tenere lo stesso stile usato nell'resto del gioco, premendo il tasto exit si tornerà alla pagina home
 
--   Tabelle.
 
--   Classi e metodi.
+### Schermata di gioco
+![Progettazione](Progettazione/Interfaccie/game.PNG)
+> Schermata di gioco
 
--   Tabelle di routing
+Su questo design non c'é molto da dire abbiamo cercato di rispettare il gioco originale.
 
--   Diritti di accesso a condivisioni …
+### Schermata Classifica
+![Progettazione](Progettazione/Interfaccie/gameOver.PNG)
+> Schermata dove inserire il nome per la classifica
 
-Questi documenti permetteranno di rappresentare i dettagli procedurali
-per la realizzazione del prodotto.
+Abbiamo pensato a una schermata molto pulita e intuitiva per quanto riguarda la classifica. Come si può vedere c'é solo un label dove inserire il nome con sotto il proprio punteggio.
+
+![Progettazione](Progettazione/Interfaccie/gameOver2.PNG)
+> Schermata game over
+
+Una volta inserito il nome verremo portati a questa schermata dove l'unica cosa che potremmo fare sarà premere il tasto enter per rigiocare oppure chiudere il gioco.
+
 
 ## Implementazione
 
@@ -359,21 +338,11 @@ facilmente generalizzabili o sono specifici di un caso particolare? ecc
 
 ## Allegati
 
-Elenco degli allegati, esempio:
+Elenco degli allegati:
 
+-   Files di progettazione
+-   Gantt preventivo
+-   Gantt consuntivo
 -   Diari di lavoro
-
--   Codici sorgente/documentazione macchine virtuali
-
--   Istruzioni di installazione del prodotto (con credenziali
-    di accesso) e/o di eventuali prodotti terzi
-
--   Documentazione di prodotti di terzi
-
--   Eventuali guide utente / Manuali di utilizzo
-
--   Mandato e/o Qdc
-
--   Prodotto
-
--   …
+-   Codice sorgente
+-  Qdc
