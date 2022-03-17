@@ -238,6 +238,19 @@ componenti utilizzati. Eventualmente questa va allegata.
 
 Per eventuali dettagli si possono inserire riferimenti ai diari.
 
+### Classe GameObject
+
+Questa classe rappresenta gli oggetti presenti nel gioco in modo generico, che verrà ereditato dagli altri oggetti nel gioco.
+
+Questa classe necessita la posizione con le coordinate, lo sprite per definire l'immagine, il raggio ottenendo la metà larghezza dell'immagine e infine la velocità.
+
+La posizione dell'oggetto non viene definito le coordinate in alto e sinistra dell'immagine come default, ma viene definito le coordinate nel centro dell'immagine per semplificare eventuali rotazioni e collisioni tra gli oggetti che sono a forma del cerchio (per esempio asteroide) invece dei rettangoli che viene implementato manualmente siccome che nella libreria pygame non c'è.
+
+In questa classe ci sono tre metodi:
+- `draw(self, surface)`: serve per stampare l'oggetto calcolando la posizione dell'oggetto sottrando il raggio;
+- `move(self)`: Aggiorna la posizione dell'oggetto sommando il valore della velocità;
+- `collides_with(self, other_obj)`calcola la collisione tra gli oggetti, calcolando se la distanza tra loro è più piccolo della somma dei raggi di entrambi oggetti.
+
 ## Test
 
 ### Protocollo di test
