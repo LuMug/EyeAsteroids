@@ -268,6 +268,56 @@ def collides_with(self, other_obj):
     return distance < self.radius + other_obj.radius
 ```
 
+### Classe Asteroid
+
+Questa classe serve per definire gli asteroidi nel gioco ereditando la classe `Game`.
+
+```py
+def __init__(self, position, angle):
+    random_sprite = [
+        ["asteroid0",100,250,4],
+        ["asteroid1",50,500,2],
+        ["asteroid2",20,750,1]
+    ]
+    rand = random.randint(0, 2)
+    self.sprite_name = random_sprite[rand][0]
+    self.point = random_sprite[rand][1]
+    # attributo per definire quanti secondi servono per distruggere l'asteroide
+    self.life = random_sprite[rand][2]
+    self.speed = random_sprite[rand][3]
+    super().__init__(
+      position, load_sprite(self.sprite_name), Vector2(self.speed, 0).rotate(angle)
+    )
+```
+In questa classe necessita lo sprite per definire l'immagine, il valore del punteggio, la vita e la velocità, tutto questo viene definito casualmente per ogni asteroide. Inoltre serve anche la posizione dell'asteroide e l'angolo per indicare la direzione in cui va l'asteroide siccome che il vettore y della velocità è 0.
+
+
+### Classe Spaceship
+
+Questa classe serve per definire la navicella nel gioco ereditando la classe `Game`.
+
+Questa classe ha solo posizione che viene definito dal parametro del costruttore, lo sprite e la velocita che è 0, utilizzando il costruttore del superclasse.
+
+Il metodo draw(surface) viene ridefinito (Override), stampa la navicella e ruota in base alle coordinate del giocatore che osserva lo schermo utilizzando la funzione `atan2()` moltiplicato per 180 e dividendo per la costante pigreco ottenendo l'angolo in gradi:
+```python
+def draw(self, surface):
+    position_spaceship_x, position_spaceship_y = self.position
+    coordinate_x, coordinate_y = pygame.mouse.get_pos()
+
+    angle = atan2(
+        position_spaceship_y - coordinate_y,
+        coordinate_x - position_spaceship_x
+      ) * 180 / pi
+    
+    #ruota l'immagine
+    rotated_surface = rotozoom(self.sprite, angle, 1.0)
+
+    #coordinate dell'immagine ruotato
+    blit_position = self.position - (Vector2(rotated_surface.get_size())/2)
+    surface.blit(rotated_surface, blit_position)
+```
+
+
 ## Test
 
 ### Protocollo di test
