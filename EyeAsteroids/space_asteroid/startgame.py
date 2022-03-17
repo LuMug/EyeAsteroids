@@ -105,9 +105,11 @@ class EyeAsteroids:
 
     def _draw_info(self):
         self.screen.fill((0,0,0))
-        pygame.draw.rect(self.screen,(255,255,255),(300,270,200,60))
-        self.wirte = writeText("Info",self.x / 2,100,60,(255,255,255),self)
-        self.wirte = writeText("...",self.x / 2,300,40,(0,0,0),self)
+        self.wirte = writeText("Informations",self.x / 2,100,60,(255,255,255),self)
+        self.wirte = writeText("Description points",self.x / 2,300,40,(255,255,255),self)
+        #self.screen.blit(load_sprite("asteroid0", False), (0, 0),(self.x / 2,400,40))
+        
+
         pygame.display.flip()
 
 
@@ -126,9 +128,11 @@ class EyeAsteroids:
         rows = showResult()
         
         pos_y = 300
+        place = 1
         for row in rows:
-            self.wirte = writeText(f"{row[0]}   {row[1]}",self.x / 2,pos_y,30,(255,255,255),self)
+            self.wirte = writeText(f"{place}. {row[0]}   {row[1]}",self.x / 2,pos_y,30,(255,255,255),self)
             pos_y += 50
+            place += 1
         self.wirte = writeText("Press H to back home",self.x / 2,150,20,(255,255,255),self)
         self.wirte = writeText(f"Your Rank: {self.points}",self.x / 2,self.y - 50,30,(255,255,255),self)
         pygame.display.flip()
@@ -221,8 +225,9 @@ class EyeAsteroids:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         insertResult(self.points, self.player)
-                        self.player = ''
-                        self.state_game = 4
+                        if len(self.player) > 0 :
+                            self.player = ''
+                            self.state_game = 4
                     elif event.key == pygame.K_BACKSPACE:
                         self.player = self.player[:-1]
                     else:
