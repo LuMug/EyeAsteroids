@@ -16,8 +16,8 @@ class EyeAsteroids:
     
     def __init__(self):
         self._init_pygame()
-        self.screen = pygame.display.set_mode((800, 600))
-        self.background = load_sprite("background", False)
+        self.screen = pygame.display.set_mode((1500, 900))
+        self.background = load_sprite("home", False)
         self.clock = pygame.time.Clock()
         createDatabase()
         
@@ -66,6 +66,7 @@ class EyeAsteroids:
             self._handle_input()
 
             if self.state_game == 0:
+                self._process_game_logic()
                 self._draw_home()
 
             elif self.state_game == 1:
@@ -86,15 +87,15 @@ class EyeAsteroids:
 
     def _draw_home(self):
         self.screen.blit(self.background, (0, 0))
-        self.title = writeText("EyeAsteroids",400,100,60,(255,255,255),self)
-        self.button = writeText("Press ENTER to start",400,300,40,(255,255,255),self)
+        self.title = writeText("EyeAsteroids",self.x / 2,100,60,(255,255,255),self)
+        self.button = writeText("Press ENTER to start",self.x / 2,300,40,(255,255,255),self)
         self.info = writeText("Press [i] for info",self.x - 125,self.y - 20,25,(255,255,255),self)
         pygame.display.flip()
 
     def _draw_game(self):
 
         self.screen.fill((0,0,0))
-        self.wirte = writeText("Score: " + str(self.points),400,10,20,(255,255,255),self)
+        self.wirte = writeText("Score: " + str(self.points),self.x / 2,10,20,(255,255,255),self)
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
 
@@ -105,29 +106,31 @@ class EyeAsteroids:
     def _draw_info(self):
         self.screen.fill((0,0,0))
         pygame.draw.rect(self.screen,(255,255,255),(300,270,200,60))
-        self.wirte = writeText("Info",400,100,60,(255,255,255),self)
-        self.wirte = writeText("...",400,300,40,(0,0,0),self)
+        self.wirte = writeText("Info",self.x / 2,100,60,(255,255,255),self)
+        self.wirte = writeText("...",self.x / 2,300,40,(0,0,0),self)
         pygame.display.flip()
 
 
     def _draw_insert_name(self):
         self.screen.fill((0,0,0))
-        self.wirte = writeText("Game Over",400,100,60,(255,255,255),self)
-        self.wirte = writeText("Type your name:",400,350,30,(255,255,255),self) 
-        self.wirte = writeText(self.player+"_",400,400,30,(255,255,255),self) 
+        self.wirte = writeText("Game Over",self.x / 2,100,60,(255,255,255),self)
+        self.wirte = writeText("Type your name:",self.x / 2,350,30,(255,255,255),self) 
+        self.wirte = writeText(self.player+"_",self.x / 2,400,30,(255,255,255),self) 
         pygame.display.flip()
 
     def _draw_end(self):
         self.screen.fill((0,0,0))
         #pygame.draw.rect(self.screen,(255,255,255),(50,200,self.x - 100,350))
-        self.wirte = writeText("Game Over",400,100,60,(255,255,255),self)
-        self.wirte = writeText("Ranking:",400,225,30,(255,255,255),self)
+        self.wirte = writeText("Game Over",self.x / 2,100,60,(255,255,255),self)
+        self.wirte = writeText("Ranking:",self.x / 2,225,30,(255,255,255),self)
         rows = showResult()
         
         pos_y = 300
         for row in rows:
-            self.wirte = writeText(f"{row[0]}   {row[1]}",400,pos_y,30,(255,255,255),self)
+            self.wirte = writeText(f"{row[0]}   {row[1]}",self.x / 2,pos_y,30,(255,255,255),self)
             pos_y += 50
+        self.wirte = writeText("Press H to back home",self.x / 2,150,20,(255,255,255),self)
+        self.wirte = writeText(f"Your Rank: {self.points}",self.x / 2,self.y - 50,30,(255,255,255),self)
         pygame.display.flip()
 
 
@@ -146,7 +149,6 @@ class EyeAsteroids:
 
     def _get_game_objects(self):
         return [*self.asteroids, self.spaceship]
-
 
     def _laser_collision(self):
         
