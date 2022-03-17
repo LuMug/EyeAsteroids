@@ -238,6 +238,86 @@ componenti utilizzati. Eventualmente questa va allegata.
 
 Per eventuali dettagli si possono inserire riferimenti ai diari.
 
+### Classe GameObject
+
+Questa classe rappresenta gli oggetti presenti nel gioco in modo generico, che verrà ereditato dagli altri oggetti nel gioco.
+
+Questa classe necessita la posizione con le coordinate, lo sprite per definire l'immagine, il raggio ottenendo la metà larghezza dell'immagine e infine la velocità.
+
+La posizione dell'oggetto non viene definito le coordinate in alto e sinistra dell'immagine come default, ma viene definito le coordinate nel centro dell'immagine per semplificare eventuali rotazioni e collisioni tra gli oggetti che sono a forma del cerchio (per esempio asteroide)che viene implementato manualmente creando la funzione `collides_with()` siccome che nella libreria pygame non c'è.
+
+Il metodo `draw(surface)` serve per stampare l'oggetto calcolando la posizione dell'oggetto sottrando il raggio:
+```py
+def draw(self, surface):
+    blit_position = self.position - Vector2(self.radius)
+    surface.blit(self.sprite, blit_position)
+```
+
+
+Mentre il metodo `move()` aggiorna la posizione dell'oggetto sommando il valore della velocità:
+```py
+def move(self):
+    self.position = self.position + self.velocity
+```
+
+
+E infine il metodo `collides_with(other_obj)` calcola la collisione tra gli oggetti, calcolando se la distanza tra loro utilizzando la funzione `distance_to()` è più piccolo della somma dei raggi di entrambi oggetti:
+```py
+def collides_with(self, other_obj):
+    distance = self.position.distance_to(other_obj.position)
+    return distance < self.radius + other_obj.radius
+```
+
+### Classe Asteroid
+
+Questa classe serve per definire gli asteroidi nel gioco ereditando la classe `Game`.
+
+```py
+def __init__(self, position, angle):
+    random_sprite = [
+        ["asteroid0",100,250,4],
+        ["asteroid1",50,500,2],
+        ["asteroid2",20,750,1]
+    ]
+    rand = random.randint(0, 2)
+    self.sprite_name = random_sprite[rand][0]
+    self.point = random_sprite[rand][1]
+    # attributo per definire quanti secondi servono per distruggere l'asteroide
+    self.life = random_sprite[rand][2]
+    self.speed = random_sprite[rand][3]
+    super().__init__(
+      position, load_sprite(self.sprite_name), Vector2(self.speed, 0).rotate(angle)
+    )
+```
+In questa classe necessita lo sprite per definire l'immagine, il valore del punteggio, la vita e la velocità, tutto questo viene definito casualmente per ogni asteroide. Inoltre serve anche la posizione dell'asteroide e l'angolo per indicare la direzione in cui va l'asteroide siccome che il vettore y della velocità è 0.
+
+
+### Classe Spaceship
+
+Questa classe serve per definire la navicella nel gioco ereditando la classe `Game`.
+
+Questa classe ha solo posizione che viene definito dal parametro del costruttore, lo sprite e la velocita che è 0, utilizzando il costruttore del superclasse.
+
+Il metodo draw(surface) viene ridefinito (Override), stampa la navicella e ruota in base alle coordinate del giocatore che osserva lo schermo utilizzando la funzione `atan2()` moltiplicato per 180 e dividendo per la costante pigreco ottenendo l'angolo in gradi. Poi ruota l'immagine utilizzando la funzione `rotozoom()` con lo sprite e l'angolo per ottenere l'immagine ruotata e poi stamparlo:
+```python
+def draw(self, surface):
+    position_spaceship_x, position_spaceship_y = self.position
+    coordinate_x, coordinate_y = pygame.mouse.get_pos()
+
+    angle = atan2(
+        position_spaceship_y - coordinate_y,
+        coordinate_x - position_spaceship_x
+      ) * 180 / pi
+    
+    #ruota l'immagine
+    rotated_surface = rotozoom(self.sprite, angle, 1.0)
+
+    #coordinate dell'immagine ruotato
+    blit_position = self.position - (Vector2(rotated_surface.get_size())/2)
+    surface.blit(rotated_surface, blit_position)
+```
+
+
 ## Test
 
 ### Protocollo di test
