@@ -296,16 +296,21 @@ facilmente generalizzabili o sono specifici di un caso particolare? ecc
 
 ### Sitografia
 
-- https://stackoverflow.com/, *StackOverFlow*;
-- https://github.com/antoinelame/GazeTracking, *GazeTracking*;
-- https://www.codingcreativo.it/pygame/, *Pygame*;
-- https://docs.python.org/3/library/sqlite3.html, *sqlite*;
-- https://www.sqlitetutorial.net/sqlite-python/, *sqlite*;
-- https://www.sqlite.org/datatype3.html, *sqlite*;
-- https://www.tutorialspoint.com/sqlite/, *sqlite*;
-- https://www.geeksforgeeks.org/python-sqlite-create-table/, *sqlite*;
-- https://linuxhint.com/create-table-in-sqlite-using-if-not-exists-statement/, *sqlite*;
-- https://www.pygame.org/docs/ref/rect.html?highlight=collide#pygame.Rect.clipline, *Pygame*, 24.02.2022
+- https://stackoverflow.com/, *StackOverFlow*, 17.03.2022;
+- https://github.com/antoinelame/GazeTracking, *GazeTracking*, 17.03.2022;
+- https://www.codingcreativo.it/pygame/, *Pygame*, 24.02.2022;
+- https://docs.python.org/3/library/sqlite3.html, *sqlite*, 24.02.2022;
+- https://www.sqlitetutorial.net/sqlite-python/, *sqlite*, 24.02.2022;
+- https://www.tutorialspoint.com/sqlite/, *sqlite*, 24.02.2022;
+- https://www.sqlite.org/datatype3.html, *sqlite*, 24.02.2022;
+- https://www.geeksforgeeks.org/python-sqlite-create-table/, *sqlite*, 24.02.2022;
+- https://linuxhint.com/create-table-in-sqlite-using-if-not-exists-statement/, *sqlite*, 24.02.2022;
+- https://www.pygame.org/docs/ref/rect.html?highlight=collide#pygame.Rect.clipline, *Pygame*, 24.02.2022;
+- https://onlinepngtools.com/resize-png, *Modifica gradezza immagini*, 24.02.2022;
+- https://www.w3schools.com/python/python_try_except.asp, *Pygame*, 24.02.2022;
+- https://www.w3schools.com/python/ref_random_randrange.asp, *Pygame*, 24.02.2022;
+- https://stackoverflow.com/questions/36653519/how-do-i-get-the-size-width-x-height-of-my-pygame-.window#:~:text=You%20can%20get%20the%20windows,get_height()%20on%20the%20surface, *Pygame*, 17.02.2022;
+- https://app.diagrams.net/ , *Diagrammi*, 17.03.2022;
 
 ## Allegati
 
@@ -316,4 +321,4 @@ Elenco degli allegati:
 -   Gantt consuntivo
 -   Diari di lavoro
 -   Codice sorgente
--  Qdc
+-   Qdc
