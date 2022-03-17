@@ -149,9 +149,10 @@ Lo scopo del progetto è di creare un videogame che riprenda l’iconico Asteroi
 
 
 ### Use case
+Ecco il nostro Use Case:
+![Use case](Progettazione/UseCase.PNG)
+> Use case
 
-I casi d’uso rappresentano l’interazione tra i vari attori e le
-funzionalità del prodotto.
 
 ### Pianificazione
 
@@ -304,6 +305,7 @@ facilmente generalizzabili o sono specifici di un caso particolare? ecc
 - https://www.tutorialspoint.com/sqlite/, *sqlite*;
 - https://www.geeksforgeeks.org/python-sqlite-create-table/, *sqlite*;
 - https://linuxhint.com/create-table-in-sqlite-using-if-not-exists-statement/, *sqlite*;
+- https://www.pygame.org/docs/ref/rect.html?highlight=collide#pygame.Rect.clipline, *Pygame*, 24.02.2022
 
 ## Allegati
 
