@@ -238,7 +238,7 @@ componenti utilizzati. Eventualmente questa va allegata.
 
 Per eventuali dettagli si possono inserire riferimenti ai diari.
 
-### Classe GameObject
+### Classe Game
 
 Questa classe rappresenta gli oggetti presenti nel gioco in modo generico, che verrà ereditato dagli altri oggetti nel gioco.
 
