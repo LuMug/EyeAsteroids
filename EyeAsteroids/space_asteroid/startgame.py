@@ -17,7 +17,7 @@ class EyeAsteroids:
     def __init__(self):
         self._init_pygame()
         self.screen = pygame.display.set_mode((1500, 900))
-        self.background = load_sprite("home", False)
+        #self.background = load_sprite("home", False)
         self.clock = pygame.time.Clock()
         createDatabase()
         
@@ -31,9 +31,9 @@ class EyeAsteroids:
 
         #Oggetti del gioco
         self.x, self.y = pygame.display.get_surface().get_size()
-        self.spaceship = Spaceship((self.x/2, self.y/2))
+        self.spaceship = None
         self.asteroids = []
-        self.laser = Laser((self.x/2, self.y/2))
+        
 
         # Genera gli asteroidi in modo casuale nella superficie
         self.wait = 0
@@ -48,8 +48,9 @@ class EyeAsteroids:
     def _wait_for_spawn(self, interval):
         stopped = Event()
         def loop():
+            print("a")
             while not stopped.wait(self.wait):
-                if self.state_game == 1:
+                if self.state_game == 1 or self.state_game == 0:
                     self.wait = random.randint(2, 5)
                     self._spawn_asteroids(self.wait * 2)
                     if self.wait == 0:
@@ -66,10 +67,12 @@ class EyeAsteroids:
             self._handle_input()
 
             if self.state_game == 0:
-                self._process_game_logic()
+                
                 self._draw_home()
 
             elif self.state_game == 1:
+                self.spaceship = Spaceship((self.x/2, self.y/2))
+                self.laser = Laser((self.x/2, self.y/2))
                 self._process_game_logic()
                 self._draw_game()
 
@@ -86,7 +89,12 @@ class EyeAsteroids:
         pygame.display.set_caption("EyeAsteroids")
 
     def _draw_home(self):
-        self.screen.blit(self.background, (0, 0))
+        self.screen.fill((0,0,0))
+        for asteroid in self.asteroids:
+            asteroid.move()
+            asteroid.draw(self.screen)
+
+
         self.title = writeText("EyeAsteroids",self.x / 2,100,60,(255,255,255),self)
         self.button = writeText("Press ENTER to start",self.x / 2,300,40,(255,255,255),self)
         self.info = writeText("Press [i] for info",self.x - 125,self.y - 20,25,(255,255,255),self)
@@ -105,11 +113,9 @@ class EyeAsteroids:
 
     def _draw_info(self):
         self.screen.fill((0,0,0))
-        self.wirte = writeText("Informations",self.x / 2,100,60,(255,255,255),self)
-        self.wirte = writeText("Description points",self.x / 2,300,40,(255,255,255),self)
-        #self.screen.blit(load_sprite("asteroid0", False), (0, 0),(self.x / 2,400,40))
-        
-
+        pygame.draw.rect(self.screen,(255,255,255),(300,270,200,60))
+        self.wirte = writeText("Info",self.x / 2,100,60,(255,255,255),self)
+        self.wirte = writeText("...",self.x / 2,300,40,(0,0,0),self)
         pygame.display.flip()
 
 
@@ -141,6 +147,7 @@ class EyeAsteroids:
     def _process_game_logic(self):
         for game_object in self._get_game_objects():
             game_object.move()
+
 
 
         #collisione degli asteroidi con la navicella
@@ -213,8 +220,10 @@ class EyeAsteroids:
     def _handle_input(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+                self.cancel_wait()
                 quit()
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN) and self.state_game == 0:
+                self.asteroids = []
                 self.state_game = 1
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 0:
                 self.state_game = 2
