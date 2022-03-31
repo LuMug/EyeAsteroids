@@ -4,13 +4,10 @@ from pygame.math import Vector2
 # che verrà ereditato dagli altri oggetti in gioco.
 class Game:
 
-    # costruttore
-    # servono 3 parametri:
-    # - position:   posizione dell'oggetto
-    #               (centro dell'immagine! per semplificare eventuali rotazioni dell'oggetto,
-    #               per stampare bisogna fare qualche calcolo per ottenere la coordinata l'alto e sinsitra dell'oggetto)
-    # - sprite:     il percorso dell'immagine
-    # - velocity:   la velocità
+    # Costruttore che ha 3 parametri:
+    #  position: posizione dell'oggetto come centro dell'immagine
+    #  sprite: percorso dell'immagine
+    #  velocity: velocità in movimento dell'oggetto
     def __init__(self, position, sprite, velocity):
         self.position = Vector2(position)
         self.sprite = sprite

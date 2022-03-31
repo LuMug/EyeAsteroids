@@ -9,7 +9,6 @@ from math import atan2, pi
 
 class Spaceship(Game):
 	
-
 	def __init__(self, position):
 		super().__init__(
 			position, load_sprite("spaceship"), Vector2(0)
@@ -18,8 +17,10 @@ class Spaceship(Game):
 	# disegna la navicella e ruota in base alle coordinate del giocatore che osserva lo schermo
 	def draw(self, surface):
 		position_spaceship_x, position_spaceship_y = self.position
+		
 		coordinate_x, coordinate_y = pygame.mouse.get_pos()
 
+		#calcolo per trovare l'angolo
 		angle = atan2(
 				position_spaceship_y - coordinate_y,
 				coordinate_x - position_spaceship_x

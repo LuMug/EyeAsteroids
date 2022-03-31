@@ -25,14 +25,13 @@ def insertResult(score, player):
 def showResult():
    conn = sqlite3.connect('./space_asteroid/score.db')
    cur = conn.cursor()
-   cur.execute("SELECT nome, score FROM Score ORDER BY score DESC LIMIT 5")
+   cur.execute("SELECT nome, score, id FROM Score ORDER BY score DESC LIMIT 5")
    rows = cur.fetchall()
 
    #for row in rows:
    #   print(row)
-   return rows
 
    conn.commit()
    conn.close()
-
+   return rows
 

@@ -17,11 +17,8 @@ class EyeAsteroids:
     def __init__(self):
         self._init_pygame()
         self.screen = pygame.display.set_mode((1500, 900))
-        #self.background = load_sprite("home", False)
         self.clock = pygame.time.Clock()
         createDatabase()
-        
-        # font = pygame.font.Font('./assets/font/SFFunkOblique.ttf', 50)
 
         # stato del gioco: 0 -> home; 1 -> gioco; 2 -> info gioco; 3 -> fine gioco
         self.state_game = 0;
@@ -42,24 +39,8 @@ class EyeAsteroids:
         #punteggio
         self.points = 0
 
+        #nome del giocatore (inserire quando finisce il gioco)
         self.player = ""
-
-
-    def _wait_for_spawn(self, interval):
-        stopped = Event()
-        def loop():
-            while not stopped.wait(self.wait):
-                if self.state_game == 1 or self.state_game == 0:
-                    self.wait = random.randint(2, 5)
-                    self._destroy_asteroids()
-                    self._spawn_asteroids(self.wait * 2)
-                    if self.wait == 0:
-                        self.wait = interval
-
-        Thread(target=loop).start()    
-        return stopped.set
-
-        
 
     def main_loop(self):
         while True:
@@ -146,16 +127,14 @@ class EyeAsteroids:
             self.wirte = writeText(f"{place}. {row[0]}   {row[1]}",self.x / 2,pos_y,30,(255,255,255),self)
             pos_y += 50
             place += 1
-        self.wirte = writeText("Press H to back home",self.x / 2,150,20,(255,255,255),self)
-        self.wirte = writeText(f"Your Rank: {self.points}",self.x / 2,self.y - 50,30,(255,255,255),self)
+        self.wirte = writeText("Press H to back home or press R to restart",self.x / 2,150,20,(255,255,255),self)
+        self.wirte = writeText(f"Your Score: {self.points}",self.x / 2,self.y - 50,30,(255,255,255),self)
         pygame.display.flip()
 
 
     def _process_game_logic(self):
         for game_object in self._get_game_objects():
             game_object.move()
-
-
 
         #collisione degli asteroidi con la navicella
         if self.spaceship:
@@ -227,37 +206,65 @@ class EyeAsteroids:
             if (asteroid.x > self.x + 120 or asteroid.x < 0 - 120) or (asteroid.y > self.y + 120 or asteroid.y < 0 - 120):
                 self.asteroids.remove(asteroid)
                 del asteroid
+
+    def _wait_for_spawn(self, interval):
+        stopped = Event()
+        def loop():
+            while not stopped.wait(self.wait):
+                if self.state_game == 1 or self.state_game == 0:
+                    self.wait = random.randint(2, 5)
+                    self._destroy_asteroids()
+                    self._spawn_asteroids(self.wait * 2)
+                    if self.wait == 0:
+                        self.wait = interval
+
+        Thread(target=loop).start()    
+        return stopped.set
     
     
     def _handle_input(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+                # chiude la finestra
                 self.cancel_wait()
                 quit()
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN) and self.state_game == 0:
+                # schermata gioco
                 self.asteroids = []
                 self.state_game = 1
-            elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 0:
-                self.state_game = 2
-            elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 2:
-                self.state_game = 0
-            elif (self.state_game == 3):
 
+            elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 0:
+                # mostra le informazioni se sei nella schermata home
+                self.state_game = 2
+
+            elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 2:
+                # esci dalla schermata delle informazioni se sei nella schermata informazioni
+                self.state_game = 0
+
+            elif (self.state_game == 3):
+                self.asteroids = []
+
+                # inserimento nome del giocatore quando finisci il gioco
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
-                        insertResult(self.points, self.player)
+                        
                         if len(self.player) > 0 :
+                            insertResult(self.points, self.player)
                             self.player = ''
+
                             self.state_game = 4
                     elif event.key == pygame.K_BACKSPACE:
+
+                        # cancelli una lettera alla fine della stringa
                         self.player = self.player[:-1]
                     else:
                         self.player += event.unicode
-            elif (event.type == pygame.KEYDOWN and (event.key == pygame.K_r or event.key == pygame.K_h)) and self.state_game == 4:
-                eyeAsteroids = EyeAsteroids()
-                eyeAsteroids.main_loop()
-                del self
-
+            elif (event.type == pygame.KEYDOWN and event.key == pygame.K_r ) and self.state_game == 4:
                 self.state_game = 1
+                self.cancel_wait = self._wait_for_spawn(6)
+                self.points = 0
+                
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_h) and self.state_game == 4:
                 self.state_game = 0
+                self.cancel_wait = self._wait_for_spawn(6)
+                self.points = 0

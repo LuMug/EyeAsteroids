@@ -9,13 +9,14 @@ class Asteroid(Game):
 
 	def __init__(self, x, y, angle):
 		random_sprite = [
-							["asteroid0",100,250,4],
-							["asteroid1",50,500,2],
-							["asteroid2",20,750,1]
-						]
+			["asteroid0",100,250,4],
+			["asteroid1",50,500,2],
+			["asteroid2",20,750,1]
+		]
 		rand = random.randint(0, 2)
 		self.sprite_name = random_sprite[rand][0]
 		self.point = random_sprite[rand][1]
+		
 		# attributo per definire quanti secondi servono per distruggere l'asteroide
 		self.life = random_sprite[rand][2]
 		self.speed = random_sprite[rand][3]

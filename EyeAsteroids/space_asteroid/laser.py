@@ -4,7 +4,7 @@ from game import Game
 from pygame.math import Vector2
 
 
-class Laser(Game):
+class Laser():
 
 	def __init__(self, start_point):
 		self.start_point = start_point
