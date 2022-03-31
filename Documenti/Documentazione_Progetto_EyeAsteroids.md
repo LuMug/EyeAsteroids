@@ -51,7 +51,7 @@
 
 ### Informazioni sul progetto
 - Allievi coinvolti nel progetto: Alessandro Aloise, Mattia Pasquini, Alessandro Castelli
-- Classe: I3BB,I3AC Scuola Arti e Mestieri Trevano, sezione Informatica.
+- Classe: I3AA e I3BB, Scuola Arti e Mestieri Trevano, sezione Informatica.
 - Docenti responsabili: Luca Muggiasca.
 - Data inizio: 27 gennario 2022
 - Data di fine: 05 maggio 2022.
@@ -70,7 +70,7 @@ Lo scopo del progetto è di creare un videogame che riprenda l’iconico Asteroi
 
 ### Analisi del dominio
 
-  È stato richiesto di creare il videogame Asteroids che dovrà essere giocato tramite gli occhi. La navicella deve essere fissa al centro e poter sparare tramite lo sguardo del giocatore inoltre. Il videogame deve contere una classifica come il gioco origine. Deve inoltre essere presenti vari livelli di difficoltà, in fine devono essere presenti vari tipi di asteroidi.
+È stato richiesto di creare il videogame Asteroids che dovrà essere giocato tramite gli occhi. La navicella deve essere fissa al centro e poter sparare tramite lo sguardo del giocatore inoltre. Il videogame deve contere una classifica come il gioco origine. Deve inoltre essere presenti vari livelli di difficoltà, in fine devono essere presenti vari tipi di asteroidi.
 
   Deve essere inoltre allestita una macchina dedicata per il suo corretto funzionamento e in modo che più persone possano giocarci.
 
@@ -320,10 +320,11 @@ def draw(self, surface):
 ### Classe Laser
 
 Questa classe serve per definire il laser, che viene utilizzato dalla navicella per sparare contro gli asteroidi.
+Non è necessario ereditare la classe `Game` perché non ha alcuna caratteristica simile rispetto ad altri oggetti presenti in questo gioco (collisioni, velocità e altro) se il laser viene rappresentato con una sola linea. Se fosse rappresentato come pallottola, in questo caso dovrebbe avere la necessità di ereditare la casse `Game`.
 
 Questa classe necessita solamente il punto iniziale (in questo caso, centro).
 
-Il metodo `draw(surface)` stampa la linea utilizzando il colore (in questo caso è bianco), il punto di partenza definito dall'attributo di questa classe, punto finale definito dalle coordinate del giocatore che osserva lo schermo e infine il parametro `width` che rappresenta lo spessore della linea.
+Il metodo `draw(surface)` stampa la linea utilizzando il colore, il punto di partenza definito dall'attributo di questa classe, punto finale definito dalle coordinate del giocatore che osserva lo schermo e infine il parametro `width` che rappresenta lo spessore della linea.
 ```py
 def draw(self, surface):    
     coordinate = pygame.mouse.get_pos()
@@ -331,6 +332,45 @@ def draw(self, surface):
     pygame.draw.line(surface, (255,255,255), self.start_point, coordinate, width=2)
 ```
 
+### Classe EyeAsteroids
+
+Questa classe serve per far eseguire il gioco, utilizzando la libreria Pygame.
+
+Questa classe necessita diversi attributi:
+- `screen`: display del gioco (impostato 1500 x 900, scelta arbitraria);
+- `width`:  altezza del display del gioco;
+- `height`: lunghezza del display del gioco;
+- `clock`: oggetto `Clock` dalla libreria pygame.time;
+- `state_game`: stato dell'applicazione indicato dal suo valore: 
+  - Valore `0` indica la schermata iniziale (home); 
+  - Valore `1` indica la schermata del gioco (modalità gioco);
+  - Valore `2` indica la schermata dove mostra le informazioni del gioco;
+  - Valore `3` indica la schermata per inserire il nome per salvare il nickname e il punteggio nel database;
+  - Valore `4` indica la schermata dove mostra la classifica (top 5) e il punteggio ottenuto dall'ultimo utente giocato.
+ - `points`: punteggio del giocatore corrente;
+ - `player`: nickname del giocatore corrente;
+ - `spaceship`: oggetto `Spaceship`, inizializzata come `None`;
+ - `asteroids`: lista degli oggestti `Asteroid`;
+ - `last_time`: attributo per calcolare la durata della collisione tra punta del laser e l'asteroide, inizializzata come `None`;
+ - `wait`: (Castelli...);
+ - `cancel_wait`: (Castelli...).
+
+Questa classe contiene tanti metodi:
+- `_init_pygame()`:
+- `main_loop()`:
+- `_draw_home()`:
+- `_draw_game()`:
+- `_draw_info()`:
+- `_draw_insert_name()`:
+- `_draw_end()`:
+- `_process_game_logic()`:
+- `_get_game_objects()`:
+- `_laser_collision()`:
+- `_collide_any_asteroid()`:
+- `_spawn_asteroids()`:
+- `_destroy_asteroids()`:
+- `_wait_for_spawn()`:
+- `_handle_input()`:
 
 ## Test
 
