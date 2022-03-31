@@ -27,7 +27,7 @@ per l'estrazione dei frame non poteva funzionare quindi per risolvere abbiamo se
 
 
 ##  Punto della situazione rispetto alla pianificazione
-Leggermente avanti rispetto alla programmazione
+Leggermente avanti rispetto alla programmazione, mentre la libreria per gli occhi c'è ancora da lavorare
 
 ## Programma di massima per la prossima giornata di lavoro
 Testare la libreria WebGazer
