@@ -48,10 +48,10 @@ class EyeAsteroids:
     def _wait_for_spawn(self, interval):
         stopped = Event()
         def loop():
-            print("a")
             while not stopped.wait(self.wait):
                 if self.state_game == 1 or self.state_game == 0:
                     self.wait = random.randint(2, 5)
+                    self._destroy_asteroids()
                     self._spawn_asteroids(self.wait * 2)
                     if self.wait == 0:
                         self.wait = interval
@@ -113,9 +113,15 @@ class EyeAsteroids:
 
     def _draw_info(self):
         self.screen.fill((0,0,0))
-        pygame.draw.rect(self.screen,(255,255,255),(300,270,200,60))
-        self.wirte = writeText("Info",self.x / 2,100,60,(255,255,255),self)
-        self.wirte = writeText("...",self.x / 2,300,40,(0,0,0),self)
+        self.wirte = writeText("Informations",self.x / 2,100,60,(255,255,255),self)
+        self.wirte = writeText("Description points",self.x / 2,220,40,(255,255,255),self)
+        #self.screen.blit(load_sprite("asteroid0", False), (self.x / 2, 300))
+        self.wirte = writeText("100 points",self.x / 2 + 50,300,40,(255,255,255),self)
+        self.wirte = writeText("50 points",self.x / 2 + 50,450,40,(255,255,255),self)
+        self.wirte = writeText("20 points",self.x / 2 + 50,600,40,(255,255,255),self)
+        self.screen.blit(load_sprite("asteroid0"), (self.x / 2 - 175, 275))
+        self.screen.blit(load_sprite("asteroid1"), (self.x / 2 - 185, 415))
+        self.screen.blit(load_sprite("asteroid2"), (self.x / 2 - 195, 550))
         pygame.display.flip()
 
 
@@ -125,6 +131,7 @@ class EyeAsteroids:
         self.wirte = writeText("Type your name:",self.x / 2,350,30,(255,255,255),self) 
         self.wirte = writeText(self.player+"_",self.x / 2,400,30,(255,255,255),self) 
         pygame.display.flip()
+
 
     def _draw_end(self):
         self.screen.fill((0,0,0))
@@ -200,11 +207,9 @@ class EyeAsteroids:
             else:
                 x = self.x + 120
                 angle = random.randint(105,255)
-            pos = Vector2(
-                x,
-                random.randrange(self.y)
-            )
-            self.asteroids.append(Asteroid(pos, angle))
+            pos_x = x
+            pos_y = random.randrange(self.y)
+            self.asteroids.append(Asteroid(pos_x, pos_y, angle))
         for _ in range(spawn_y):
             random_y = random.randint(1, 10)
             if random_y <= 5:
@@ -213,8 +218,15 @@ class EyeAsteroids:
             else:
                 y = self.y + 120
                 angle = random.randint(195,345)
-            pos = Vector2(random.randrange(self.x),y)
-            self.asteroids.append(Asteroid(pos, angle))
+            pos_x = random.randrange(self.x)
+            pos_y = y
+            self.asteroids.append(Asteroid(pos_x, pos_y, angle))
+
+    def _destroy_asteroids(self):
+        for asteroid in self.asteroids:
+            if (asteroid.x > self.x + 120 or asteroid.x < 0 - 120) or (asteroid.y > self.y + 120 or asteroid.y < 0 - 120):
+                self.asteroids.remove(asteroid)
+                del asteroid
     
     
     def _handle_input(self):
