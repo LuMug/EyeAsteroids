@@ -173,6 +173,12 @@ class EyeAsteroids:
             self.last_time = now
             if asteroid.life <= 0:
                 self.points += asteroid.point
+                if asteroid.point == 20:
+                    angle_1 = random.randint(0,360)
+                    angle_2 = random.randint(0,360)
+                    x,y = asteroid.position
+                    self.asteroids.append(Asteroid(x, y, angle_1, 1))
+                    self.asteroids.append(Asteroid(x, y, angle_2, 1))
                 self.asteroids.remove(asteroid)
                 del asteroid
         else:
@@ -200,7 +206,7 @@ class EyeAsteroids:
                 angle = random.randint(105,255)
             pos_x = x
             pos_y = random.randrange(self.height)
-            self.asteroids.append(Asteroid(pos_x, pos_y, angle))
+            self.asteroids.append(Asteroid(pos_x, pos_y, angle, 0))
         for _ in range(spawn_y):
             random_y = random.randint(1, 10)
             if random_y <= 5:
@@ -211,7 +217,7 @@ class EyeAsteroids:
                 angle = random.randint(195,345)
             pos_x = random.randrange(self.width)
             pos_y = y
-            self.asteroids.append(Asteroid(pos_x, pos_y, angle))
+            self.asteroids.append(Asteroid(pos_x, pos_y, angle, 0))
 
     # distruggi asteroidi se va fuori della superficie
     def _destroy_asteroids(self):
@@ -225,7 +231,7 @@ class EyeAsteroids:
         def loop():
             while not stopped.wait(self.wait):
                 if self.state_game == 1 or self.state_game == 0:
-                    self.wait = random.randint(2, 5)
+                    self.wait = random.randint(2, 4)
                     self._destroy_asteroids()
                     self._spawn_asteroids(self.wait * 2)
                     if self.wait == 0:
