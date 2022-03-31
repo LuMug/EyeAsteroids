@@ -27,7 +27,7 @@ class EyeAsteroids:
         self.last_time = None
 
         #Oggetti del gioco
-        self.x, self.y = pygame.display.get_surface().get_size()
+        self.width, self.height = pygame.display.get_surface().get_size()
         self.spaceship = None
         self.asteroids = []
         
@@ -82,19 +82,19 @@ class EyeAsteroids:
             asteroid.draw(self.screen)
 
 
-        self.title = writeText("EyeAsteroids",self.x / 2,100,60,(255,255,255),self)
-        self.button = writeText("Press ENTER to start",self.x / 2,300,40,(255,255,255),self)
-        self.info = writeText("Press [i] for info",self.x - 125,self.y - 20,25,(255,255,255),self)
+        self.title = writeText("EyeAsteroids",self.width / 2,100,60,(255,255,255),self)
+        self.button = writeText("Press ENTER to start",self.width / 2,300,40,(255,255,255),self)
+        self.info = writeText("Press [i] for info",self.width - 125,self.height - 20,25,(255,255,255),self)
         pygame.display.flip()
 
     # Stampa gli oggetti (asteroidi, navicella e laser) in movimento in gioco. 
     def _draw_game(self):
 
         self.screen.fill((0,0,0))
-        self.wirte = writeText("Score: " + str(self.points),self.x / 2,10,20,(255,255,255),self)
+        self.wirte = writeText("Score: " + str(self.points),self.width / 2,10,20,(255,255,255),self)
 
-        self.spaceship = Spaceship((self.x/2, self.y/2))
-        self.laser = Laser((self.x/2, self.y/2))
+        self.spaceship = Spaceship((self.width/2, self.height/2))
+        self.laser = Laser((self.width/2, self.height/2))
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
 
@@ -104,41 +104,41 @@ class EyeAsteroids:
     # Stampa la schemata per mostrare le infomazioni del gioco
     def _draw_info(self):
         self.screen.fill((0,0,0))
-        self.wirte = writeText("Informations",self.x / 2,100,60,(255,255,255),self)
-        self.wirte = writeText("Description points",self.x / 2,220,40,(255,255,255),self)
-        #self.screen.blit(load_sprite("asteroid0", False), (self.x / 2, 300))
-        self.wirte = writeText("100 points",self.x / 2 + 50,300,40,(255,255,255),self)
-        self.wirte = writeText("50 points",self.x / 2 + 50,450,40,(255,255,255),self)
-        self.wirte = writeText("20 points",self.x / 2 + 50,600,40,(255,255,255),self)
-        self.screen.blit(load_sprite("asteroid0"), (self.x / 2 - 175, 275))
-        self.screen.blit(load_sprite("asteroid1"), (self.x / 2 - 185, 415))
-        self.screen.blit(load_sprite("asteroid2"), (self.x / 2 - 195, 550))
+        self.wirte = writeText("Informations",self.width / 2,100,60,(255,255,255),self)
+        self.wirte = writeText("Description points",self.width / 2,220,40,(255,255,255),self)
+        #self.screen.blit(load_sprite("asteroid0", False), (self.width / 2, 300))
+        self.wirte = writeText("100 points",self.width / 2 + 50,300,40,(255,255,255),self)
+        self.wirte = writeText("50 points",self.width / 2 + 50,450,40,(255,255,255),self)
+        self.wirte = writeText("20 points",self.width / 2 + 50,600,40,(255,255,255),self)
+        self.screen.blit(load_sprite("asteroid0"), (self.width / 2 - 175, 275))
+        self.screen.blit(load_sprite("asteroid1"), (self.width / 2 - 185, 415))
+        self.screen.blit(load_sprite("asteroid2"), (self.width / 2 - 195, 550))
         pygame.display.flip()
 
     # Stampa la schemata per inserire il gioco
     def _draw_insert_name(self):
         self.screen.fill((0,0,0))
-        self.wirte = writeText("Game Over",self.x / 2,100,60,(255,255,255),self)
-        self.wirte = writeText("Type your name:",self.x / 2,350,30,(255,255,255),self) 
-        self.wirte = writeText(self.player+"_",self.x / 2,400,30,(255,255,255),self) 
+        self.wirte = writeText("Game Over",self.width / 2,100,60,(255,255,255),self)
+        self.wirte = writeText("Type your name:",self.width / 2,350,30,(255,255,255),self) 
+        self.wirte = writeText(self.player+"_",self.width / 2,400,30,(255,255,255),self) 
         pygame.display.flip()
 
     # Stampa la schemata per mostrare la classifica del gioco
     def _draw_end(self):
         self.screen.fill((0,0,0))
-        #pygame.draw.rect(self.screen,(255,255,255),(50,200,self.x - 100,350))
-        self.wirte = writeText("Game Over",self.x / 2,100,60,(255,255,255),self)
-        self.wirte = writeText("Ranking:",self.x / 2,225,30,(255,255,255),self)
+        #pygame.draw.rect(self.screen,(255,255,255),(50,200,self.width - 100,350))
+        self.wirte = writeText("Game Over",self.width / 2,100,60,(255,255,255),self)
+        self.wirte = writeText("Ranking:",self.width / 2,225,30,(255,255,255),self)
         rows = showResult()
         
         pos_y = 300
         place = 1
         for row in rows:
-            self.wirte = writeText(f"{place}. {row[0]}   {row[1]}",self.x / 2,pos_y,30,(255,255,255),self)
+            self.wirte = writeText(f"{place}. {row[0]}   {row[1]}",self.width / 2,pos_y,30,(255,255,255),self)
             pos_y += 50
             place += 1
-        self.wirte = writeText("Press H to back home or press R to restart",self.x / 2,150,20,(255,255,255),self)
-        self.wirte = writeText(f"Your Score: {self.points}",self.x / 2,self.y - 50,30,(255,255,255),self)
+        self.wirte = writeText("Press H to back home or press R to restart",self.width / 2,150,20,(255,255,255),self)
+        self.wirte = writeText(f"Your Score: {self.points}",self.width / 2,self.height - 50,30,(255,255,255),self)
         pygame.display.flip()
 
     # logica del gioco, dove muovono gli oggetti e controlla la collisione tra asteroidi e la navicella
@@ -196,10 +196,10 @@ class EyeAsteroids:
                 x = 0 - 120
                 angle = random.randint(285,435)
             else:
-                x = self.x + 120
+                x = self.width + 120
                 angle = random.randint(105,255)
             pos_x = x
-            pos_y = random.randrange(self.y)
+            pos_y = random.randrange(self.height)
             self.asteroids.append(Asteroid(pos_x, pos_y, angle))
         for _ in range(spawn_y):
             random_y = random.randint(1, 10)
@@ -207,16 +207,16 @@ class EyeAsteroids:
                 y = 0 - 120
                 angle = random.randrange(15,165)
             else:
-                y = self.y + 120
+                y = self.height + 120
                 angle = random.randint(195,345)
-            pos_x = random.randrange(self.x)
+            pos_x = random.randrange(self.width)
             pos_y = y
             self.asteroids.append(Asteroid(pos_x, pos_y, angle))
 
     # distruggi asteroidi se va fuori della superficie
     def _destroy_asteroids(self):
         for asteroid in self.asteroids:
-            if (asteroid.x > self.x + 120 or asteroid.x < 0 - 120) or (asteroid.y > self.y + 120 or asteroid.y < 0 - 120):
+            if (asteroid.x > self.width + 120 or asteroid.x < 0 - 120) or (asteroid.y > self.height + 120 or asteroid.y < 0 - 120):
                 self.asteroids.remove(asteroid)
                 del asteroid
 
