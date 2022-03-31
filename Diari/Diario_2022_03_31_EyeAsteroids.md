@@ -13,7 +13,8 @@
 |11:00 - 12.20 | Schermata informazioni con immagini asteroidi					  |Pasquini|
 |13:15 - 14:45 | Pulizia codice e aggiunta commenti		    	  	 	  		  |Pasquini e Castelli|
 |15:00 - 15:30 | Diario						     								  |Castelli| 
-|15:00 - 16:30 | Pulizia codice e aggiunta commenti	+ documentazione		      |Pasquini| 
+|15:00 - 16:30 | Pulizia codice e aggiunta commenti	+ documentazione		      |Pasquini|
+|15:30 - 16:15 | Divisione degli asteroidi grandi quando esplodono          |Castelli|
 
 Alessandro Aloise era assente per malattia
 
