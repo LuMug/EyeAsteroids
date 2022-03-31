@@ -52,10 +52,8 @@ class EyeAsteroids:
                 self._draw_home()
 
             elif self.state_game == 1:
-                self.spaceship = Spaceship((self.x/2, self.y/2))
-                self.laser = Laser((self.x/2, self.y/2))
-                self._process_game_logic()
                 self._draw_game()
+                self._process_game_logic()
 
             elif self.state_game == 2:
                 self._draw_info()
@@ -82,9 +80,12 @@ class EyeAsteroids:
         pygame.display.flip()
 
     def _draw_game(self):
-
+        
         self.screen.fill((0,0,0))
         self.wirte = writeText("Score: " + str(self.points),self.x / 2,10,20,(255,255,255),self)
+
+        self.spaceship = Spaceship((self.x/2, self.y/2))
+        self.laser = Laser((self.x/2, self.y/2))
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
 
