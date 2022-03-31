@@ -48,26 +48,34 @@ class EyeAsteroids:
             self._handle_input()
 
             if self.state_game == 0:
-                
+                # Stampa la schermata home
                 self._draw_home()
 
             elif self.state_game == 1:
+                # Stampa la schermata game e esegue la logica del gioco (movimenti degli oggetti, ...)
                 self._draw_game()
                 self._process_game_logic()
 
             elif self.state_game == 2:
+                # Stampa la schermata informazioni per mostrare il punteggio degli asteroidi
                 self._draw_info()
-            elif self.state_game == 3:
-                self._draw_insert_name()
-            else:
-                self._draw_end()
 
+            elif self.state_game == 3:
+                # Stampa la schermata per inserire il nickname
+                self._draw_insert_name()
+
+            else:
+                # Stampa la schermata per mostrare la classifica dei punteggi dei giocatori
+                self._draw_end()
 
     def _init_pygame(self):
         pygame.init()
         pygame.display.set_caption("EyeAsteroids")
-
+    
+    # stampa il titolo e altro per la schermata home
+    # lo sfondo genera gli asteroidi in movimento, senza navicella e laser
     def _draw_home(self):
+        
         self.screen.fill((0,0,0))
         for asteroid in self.asteroids:
             asteroid.move()
@@ -79,8 +87,9 @@ class EyeAsteroids:
         self.info = writeText("Press [i] for info",self.x - 125,self.y - 20,25,(255,255,255),self)
         pygame.display.flip()
 
+    # Stampa gli oggetti (asteroidi, navicella e laser) in movimento in gioco. 
     def _draw_game(self):
-        
+
         self.screen.fill((0,0,0))
         self.wirte = writeText("Score: " + str(self.points),self.x / 2,10,20,(255,255,255),self)
 
@@ -92,7 +101,7 @@ class EyeAsteroids:
         self._laser_collision()
         pygame.display.flip()
 
-
+    # Stampa la schemata per mostrare le infomazioni del gioco
     def _draw_info(self):
         self.screen.fill((0,0,0))
         self.wirte = writeText("Informations",self.x / 2,100,60,(255,255,255),self)
@@ -106,7 +115,7 @@ class EyeAsteroids:
         self.screen.blit(load_sprite("asteroid2"), (self.x / 2 - 195, 550))
         pygame.display.flip()
 
-
+    # Stampa la schemata per inserire il gioco
     def _draw_insert_name(self):
         self.screen.fill((0,0,0))
         self.wirte = writeText("Game Over",self.x / 2,100,60,(255,255,255),self)
@@ -114,7 +123,7 @@ class EyeAsteroids:
         self.wirte = writeText(self.player+"_",self.x / 2,400,30,(255,255,255),self) 
         pygame.display.flip()
 
-
+    # Stampa la schemata per mostrare la classifica del gioco
     def _draw_end(self):
         self.screen.fill((0,0,0))
         #pygame.draw.rect(self.screen,(255,255,255),(50,200,self.x - 100,350))
@@ -132,7 +141,7 @@ class EyeAsteroids:
         self.wirte = writeText(f"Your Score: {self.points}",self.x / 2,self.y - 50,30,(255,255,255),self)
         pygame.display.flip()
 
-
+    # logica del gioco, dove muovono gli oggetti e controlla la collisione tra asteroidi e la navicella
     def _process_game_logic(self):
         for game_object in self._get_game_objects():
             game_object.move()
@@ -144,10 +153,11 @@ class EyeAsteroids:
                     self.state_game = 3
                     self.cancel_wait()
 
-
+    # ritornano gli asteroidi e navicella
     def _get_game_objects(self):
         return [*self.asteroids, self.spaceship]
 
+    # Calcolo quando punti l'asteroidi, abbassando la vita dell'asteroide fino a distruggersi
     def _laser_collision(self):
         
         asteroid = self._collide_any_asteroid()
@@ -168,13 +178,14 @@ class EyeAsteroids:
         else:
             self.last_time = None
                       
+    # controllo collisione tra il punto dove l'utente guarda e l'asteroide
     def _collide_any_asteroid(self):
         for asteroid in self.asteroids:
             if(point_in_object(pygame.mouse.get_pos(),asteroid)):
                 return asteroid;
         return None;
 
-
+    # Generazione asteroidi
     def _spawn_asteroids(self, quantity):
         spawn_x = random.randrange(0, quantity)
         spawn_y = quantity - spawn_x
@@ -202,6 +213,7 @@ class EyeAsteroids:
             pos_y = y
             self.asteroids.append(Asteroid(pos_x, pos_y, angle))
 
+    # distruggi asteroidi se va fuori della superficie
     def _destroy_asteroids(self):
         for asteroid in self.asteroids:
             if (asteroid.x > self.x + 120 or asteroid.x < 0 - 120) or (asteroid.y > self.y + 120 or asteroid.y < 0 - 120):
@@ -222,7 +234,7 @@ class EyeAsteroids:
         Thread(target=loop).start()    
         return stopped.set
     
-    
+    # controllo degli eventi nel gioco
     def _handle_input(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
