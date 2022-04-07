@@ -8,9 +8,9 @@
 |Orario        |Lavoro svolto                                               	  |Eseguito da        |
 |--------------|----------------------------------------------------------------- |-------------------|
 |09:05 - 09:20 | Riunione 		  												  |Aloise e Castelli|
-|09:20 - 11:00 | Ricerche per la libreria				  	 					  |Castelli e Aloise|
-|11:00 - 12.20 | Testing		  												  |Aloise e Castelli|
-|11:00 - 12.20 | Ricerche per la libreria				   						  |Castelli e Aloise|
+|09:20 - 12:20 | Ricerche per la libreria				  	 					  |Castelli e Aloise|
+|13:15 - 14.45 | Testing		  												  |Aloise e Castelli|
+|15:00 - 16.30 | Ricerche per la libreria				   						  |Castelli e Aloise|
 
 Mattia Pasquini era assente
 
