@@ -20,7 +20,7 @@ while True:
         if gaze.is_left(): xdirection = "left" 
         if gaze.is_center(): xdirection = "center"
 
-        print(f"x ratio: {gaze.horizontal_ratio()}, xdirection: {xdirection},x: {x}")
+        print(f"x ratio: {gaze.horizontal_ratio()},x: {x}")
         print(f"y ratio: {gaze.vertical_ratio()},y: {y}")
         cv2.circle(frame, (int(x), int(y)), 20, (255,0,0), 2)
     except:
