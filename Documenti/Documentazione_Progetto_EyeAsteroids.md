@@ -444,7 +444,7 @@ def _laser_collision(self):
         self.last_time = None
 ```
 
-- `_collide_any_asteroid()`: ciclo degli asteroidi (attributo `asteroids`) controllando se le coordinate si trova nell'area degli asteroidi, se questa condizione viene soddisfatta, ritorna l'asteroide corrente, se invece non trova nulla, ritorna il valore `None`
+- `_collide_any_asteroid()`: ciclo degli asteroidi (attributo `asteroids`) controllando se le coordinate si trova nell'area degli asteroidi, se questa condizione viene soddisfatta, ritorna l'asteroide corrente, se invece non trova nulla, ritorna il valore `None`.
 - `_spawn_asteroids()`: questo metodo permette la generazione di asteroidi in posizioni casuali e con angolazioni che puntano a far entrare gli asteroidi nell'area di gioco.
 ```py
 def _spawn_asteroids(self, quantity):
@@ -498,8 +498,75 @@ def _wait_for_spawn(self, interval):
         Thread(target=loop).start()    
         return stopped.set
 ```
-- `_change_status_webcam()`:
-- `_handle_input()`:
+- `_change_status_webcam()`: questo metodo permette di assegnare alle coordinata dal mouse oppure dal webcam in base dal valore dell'attributo `coordinates`. 
+```py
+def _change_status_webcam(self):
+    if self.status_webcam:
+        try:
+            self.coordinates = (int(self.gaze.horizontal_ratio()*width), int(self.gaze.vertical_ratio()*height))
+        except:
+            pass
+    else:
+        self.coordinates = pygame.mouse.get_pos()
+```
+
+- `_handle_input()`: questo metodo controlla gli eventi presenti in questa applicazione, utilizzando `pygame.event.get()`. Nel codice seguente contiene dei commenti che spiega i controlli degli eventi e cosa fanno.
+
+```py
+def _handle_input(self):
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+            # chiude la finestra se viene premuto `esc` oppure clicchi il tasto per chiudere la finestra
+            self.cancel_wait()`
+            quit()
+        elif (event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN) and self.state_game == 0:
+            # schermata gioco se clicchi il tasto Return mentre sei nella schermata home
+            self.spaceship = Spaceship((self.width/2, self.height/2))
+            self.laser = Laser((self.width/2, self.height/2))
+            self.asteroids = []
+            self.state_game = 1
+
+        elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 0:
+            # mostra le informazioni se sei nella schermata home quando clicchi il tasto [i]
+            self.state_game = 2
+                
+        elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 2:
+            # esci dalla schermata delle informazioni se sei nella schermata informazioni quando clicchi il tasto [i]
+            self.state_game = 0
+
+        elif (self.state_game == 3):
+            self.asteroids = []
+
+            # inserimento nome del giocatore quando finisci il gioco
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                        
+                    if len(self.player) > 0 :
+                        insertResult(self.points, self.player)
+                        self.player = ''
+
+                        self.state_game = 4
+                elif event.key == pygame.K_BACKSPACE:
+
+                    # cancelli una lettera alla fine della stringa
+                    self.player = self.player[:-1]
+                else:
+                    self.player += event.unicode
+        elif (event.type == pygame.KEYDOWN and event.key == pygame.K_r ) and self.state_game == 4:
+	    # restart, quando clicchi il tasto [r] quando sei nella schermata finale (classifica)
+            self.state_game = 1
+            self.cancel_wait = self._wait_for_spawn(6)
+            self.points = 0
+               
+        elif (event.type == pygame.KEYDOWN and event.key == pygame.K_h) and self.state_game == 4:
+	    # torni alla home, quando clicchi il tasto [h] quando sei nella schermata finale (classifica)
+            self.state_game = 0
+            self.cancel_wait = self._wait_for_spawn(6)
+            self.points = 0
+        elif (event.type == pygame.KEYDOWN and event.key == pygame.K_c) and (self.state_game == 0 or self.state_game == 1):
+	    # toggle su status_webcam quando clicchi il tasto [c] nella schermata home oppure nella schermata info
+            self.status_webcam = not self.status_webcam
+```
 
 ## Test
 
