@@ -273,23 +273,35 @@ def collides_with(self, other_obj):
 Questa classe serve per definire gli asteroidi nel gioco ereditando la classe `Game`.
 
 ```py
-def __init__(self, position, angle):
-    random_sprite = [
-        ["asteroid0",100,250,4],
-        ["asteroid1",50,500,2],
-        ["asteroid2",20,750,1]
-    ]
-    rand = random.randint(0, 2)
-    self.sprite_name = random_sprite[rand][0]
-    self.point = random_sprite[rand][1]
-    # attributo per definire quanti secondi servono per distruggere l'asteroide
-    self.life = random_sprite[rand][2]
-    self.speed = random_sprite[rand][3]
-    super().__init__(
-      position, load_sprite(self.sprite_name), Vector2(self.speed, 0).rotate(angle)
-    )
+def __init__(self, x, y, angle, select):
+		random_sprite = [
+			["asteroid0",100,250,4],
+			["asteroid1",50,500,2],
+			["asteroid2",20,750,1]
+		]
+		if select != 0:
+			self.sprite_name = random_sprite[0][0]
+			self.point = random_sprite[0][1]
+		
+			# attributo per definire quanti secondi servono per distruggere l'asteroide
+			self.life = random_sprite[0][2]
+			self.speed = random_sprite[0][3]
+		else:
+			rand = random.randint(0, 2)
+			self.sprite_name = random_sprite[rand][0]
+			self.point = random_sprite[rand][1]
+
+			# attributo per definire quanti secondi servono per distruggere l'asteroide
+			self.life = random_sprite[rand][2]
+			self.speed = random_sprite[rand][3]
+		self.x = x
+		self.y = y
+		self.position = Vector2(self.x, self.y)
+		super().__init__(
+			self.position, load_sprite(self.sprite_name), Vector2(self.speed, 0).rotate(angle)
+		)
 ```
-In questa classe necessita lo sprite per definire l'immagine, il valore del punteggio, la vita e la velocità, tutto questo viene definito casualmente per ogni asteroide. Inoltre serve anche la posizione dell'asteroide e l'angolo per indicare la direzione in cui va l'asteroide siccome che il vettore y della velocità è 0.
+In questa classe necessita lo sprite per definire l'immagine, il valore del punteggio, la vita e la velocità, tutto questo viene definito casualmente per ogni asteroide. Inoltre serve anche la posizione dell'asteroide e l'angolo per indicare la direzione in cui va l'asteroide siccome che il vettore y della velocità è 0. La variabile `select` serve a cambiare il tipo di asteroide da creare, questo per via della divisione degli asteroidi grandi che quando vengono distrutti si dividono in due più piccoli, quindi quando viene distrutto un asteroide grande non devono essere creati due asteroidi casuali.
 
 
 ### Classe Spaceship
@@ -352,8 +364,8 @@ Questa classe necessita diversi attributi:
  - `spaceship`: oggetto `Spaceship`, inizializzata come `None`;
  - `asteroids`: lista degli oggestti `Asteroid`;
  - `last_time`: attributo per calcolare la durata della collisione tra punta del laser e l'asteroide, inizializzata come `None`;
- - `wait`: (Castelli...);
- - `cancel_wait`: (Castelli...).
+ - `wait`: tempo di attesa tra lo spawn degli asteroidi;
+ - `cancel_wait`: attributo che contiene la thread per lo spawn degli asteroidi.
 
 Questa classe contiene tanti metodi:
 - `_init_pygame()`:
@@ -367,9 +379,59 @@ Questa classe contiene tanti metodi:
 - `_get_game_objects()`:
 - `_laser_collision()`:
 - `_collide_any_asteroid()`:
-- `_spawn_asteroids()`:
-- `_destroy_asteroids()`:
-- `_wait_for_spawn()`:
+- `_spawn_asteroids()`: questo metodo permette la generazione di asteroidi in posizioni casuali e con angolazioni che puntano a far entrare gli asteroidi nell'area di gioco.
+```py
+def _spawn_asteroids(self, quantity):
+        spawn_x = random.randrange(0, quantity)
+        spawn_y = quantity - spawn_x
+        angle = 0
+        for _ in range(spawn_x):
+            random_x = random.randrange(1,10)
+            if random_x <= 5:
+                x = 0 - 120
+                angle = random.randint(285,435)
+            else:
+                x = self.width + 120
+                angle = random.randint(105,255)
+            pos_x = x
+            pos_y = random.randrange(self.height)
+            self.asteroids.append(Asteroid(pos_x, pos_y, angle, 0))
+        for _ in range(spawn_y):
+            random_y = random.randint(1, 10)
+            if random_y <= 5:
+                y = 0 - 120
+                angle = random.randrange(15,165)
+            else:
+                y = self.height + 120
+                angle = random.randint(195,345)
+            pos_x = random.randrange(self.width)
+            pos_y = y
+            self.asteroids.append(Asteroid(pos_x, pos_y, angle, 0))
+```
+- `_destroy_asteroids()`: questo metodo si occupa di distruggere gli asteroidi che escono dall'area di gioco.
+```py
+def _destroy_asteroids(self):
+        for asteroid in self.asteroids:
+            if (asteroid.x > self.width + 120 or asteroid.x < 0 - 120) or (asteroid.y > self.height + 120 or asteroid.y < 0 - 120):
+                self.asteroids.remove(asteroid)
+                del asteroid
+```
+- `_wait_for_spawn()`: questo metodo permette la generazione continua di asteroidi, all'interno ogni ciclo viene definito un tempo di attesa e un numero di asteroidi casuale.
+```py
+def _wait_for_spawn(self, interval):
+        stopped = Event()
+        def loop():
+            while not stopped.wait(self.wait):
+                if self.state_game == 1 or self.state_game == 0:
+                    self.wait = random.randint(2, 4)
+                    self._destroy_asteroids()
+                    self._spawn_asteroids(self.wait * 2)
+                    if self.wait == 0:
+                        self.wait = interval
+
+        Thread(target=loop).start()    
+        return stopped.set
+```
 - `_handle_input()`:
 
 ## Test
