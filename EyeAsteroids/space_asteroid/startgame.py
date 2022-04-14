@@ -9,6 +9,8 @@ from asteroid import Asteroid
 from spaceship import Spaceship
 from laser import Laser
 from database import *
+from gaze_tracking import GazeTracking
+import cv2
 
 
 class EyeAsteroids:
@@ -19,6 +21,9 @@ class EyeAsteroids:
         self.screen = pygame.display.set_mode((1500, 900))
         self.clock = pygame.time.Clock()
         createDatabase()
+        self.gaze = GazeTracking()
+        
+        self.coordinates = None
 
         # stato del gioco: 0 -> home; 1 -> gioco; 2 -> info gioco; 3 -> fine gioco
         self.state_game = 0;
@@ -42,10 +47,18 @@ class EyeAsteroids:
         #nome del giocatore (inserire quando finisce il gioco)
         self.player = ""
 
+        self.status_webcam = False
+
+        self.replay = 0
+
     def main_loop(self):
+        webcam = cv2.VideoCapture(0)
+        width = webcam.get(cv2.CAP_PROP_FRAME_WIDTH) 
+        height = webcam.get(cv2.CAP_PROP_FRAME_HEIGHT )
         while True:
             self.clock.tick(60)
             self._handle_input()
+            self._change_status_webcam() 
 
             if self.state_game == 0:
                 # Stampa la schermata home
@@ -53,6 +66,11 @@ class EyeAsteroids:
 
             elif self.state_game == 1:
                 # Stampa la schermata game e esegue la logica del gioco (movimenti degli oggetti, ...)
+                if self.replay == 0:     
+                    _, frame = webcam.read()
+                    self.gaze.refresh(frame)
+                    self.replay =1
+                frame = self.gaze.annotated_frame()
                 self._draw_game()
                 self._process_game_logic()
 
@@ -65,6 +83,8 @@ class EyeAsteroids:
                 self._draw_insert_name()
 
             else:
+                webcam.release()
+                cv2.destroyAllWindows()
                 # Stampa la schermata per mostrare la classifica dei punteggi dei giocatori
                 self._draw_end()
 
@@ -81,10 +101,17 @@ class EyeAsteroids:
             asteroid.move()
             asteroid.draw(self.screen)
 
-
         self.title = writeText("EyeAsteroids",self.width / 2,100,60,(255,255,255),self)
         self.button = writeText("Press ENTER to start",self.width / 2,300,40,(255,255,255),self)
-        self.info = writeText("Press [i] for info",self.width - 125,self.height - 20,25,(255,255,255),self)
+        if self.status_webcam:
+            a = 169
+            b = 161
+        else:
+            a = 165
+            b = 165
+        self.write = writeText("Stato Keybord: " + str(not self.status_webcam),a,self.height - 50,25,(255,255,255),self)
+        self.write = writeText("Stato webcam: " + str(self.status_webcam),b,self.height - 20,25,(255,255,255),self)
+        self.info = writeText("Press [i] to info",self.width - 130,self.height - 20,25,(255,255,255),self)
         pygame.display.flip()
 
     # Stampa gli oggetti (asteroidi, navicella e laser) in movimento in gioco. 
@@ -97,7 +124,7 @@ class EyeAsteroids:
         self.laser = Laser((self.width/2, self.height/2))
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
-
+        self.spaceship.draw(self.screen, self.coordinates)
         self._laser_collision()
         pygame.display.flip()
 
@@ -106,13 +133,14 @@ class EyeAsteroids:
         self.screen.fill((0,0,0))
         self.wirte = writeText("Informations",self.width / 2,100,60,(255,255,255),self)
         self.wirte = writeText("Description points",self.width / 2,220,40,(255,255,255),self)
-        #self.screen.blit(load_sprite("asteroid0", False), (self.width / 2, 300))
         self.wirte = writeText("100 points",self.width / 2 + 50,300,40,(255,255,255),self)
         self.wirte = writeText("50 points",self.width / 2 + 50,450,40,(255,255,255),self)
         self.wirte = writeText("20 points",self.width / 2 + 50,600,40,(255,255,255),self)
         self.screen.blit(load_sprite("asteroid0"), (self.width / 2 - 175, 275))
         self.screen.blit(load_sprite("asteroid1"), (self.width / 2 - 185, 415))
         self.screen.blit(load_sprite("asteroid2"), (self.width / 2 - 195, 550))
+        self.write = writeText("Press [c] to change status",self.width / 2 ,self.height - 70,25,(255,255,255),self)
+        self.write = writeText("Press [i] to home",self.width / 2 ,self.height - 100,25,(255,255,255),self)
         pygame.display.flip()
 
     # Stampa la schemata per inserire il gioco
@@ -130,7 +158,6 @@ class EyeAsteroids:
         self.wirte = writeText("Game Over",self.width / 2,100,60,(255,255,255),self)
         self.wirte = writeText("Ranking:",self.width / 2,225,30,(255,255,255),self)
         rows = showResult()
-        
         pos_y = 300
         place = 1
         for row in rows:
@@ -155,15 +182,14 @@ class EyeAsteroids:
 
     # ritornano gli asteroidi e navicella
     def _get_game_objects(self):
-        return [*self.asteroids, self.spaceship]
+        #return [*self.asteroids, self.spaceship]
+        return [*self.asteroids]
 
     # Calcolo quando punti l'asteroidi, abbassando la vita dell'asteroide fino a distruggersi
     def _laser_collision(self):
-        
         asteroid = self._collide_any_asteroid()
         if(asteroid != None):  
-            self.laser.draw(self.screen)
-
+            self.laser.draw(self.screen, self.coordinates)
             if self.last_time == None:
                 self.last_time = pygame.time.get_ticks()
             
@@ -187,7 +213,7 @@ class EyeAsteroids:
     # controllo collisione tra il punto dove l'utente guarda e l'asteroide
     def _collide_any_asteroid(self):
         for asteroid in self.asteroids:
-            if(point_in_object(pygame.mouse.get_pos(),asteroid)):
+            if(point_in_object(self.coordinates,asteroid)):
                 return asteroid;
         return None;
 
@@ -239,6 +265,15 @@ class EyeAsteroids:
 
         Thread(target=loop).start()    
         return stopped.set
+
+    def _change_status_webcam(self):
+        if self.status_webcam:
+            try:
+                self.coordinates = (int(self.gaze.horizontal_ratio()*width), int(self.gaze.vertical_ratio()*height))
+            except:
+                pass
+        else:
+            self.coordinates = pygame.mouse.get_pos()
     
     # controllo degli eventi nel gioco
     def _handle_input(self):
@@ -255,6 +290,7 @@ class EyeAsteroids:
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 0:
                 # mostra le informazioni se sei nella schermata home
                 self.state_game = 2
+                self.status_webcam = not self.status_webcam
 
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 2:
                 # esci dalla schermata delle informazioni se sei nella schermata informazioni
@@ -287,3 +323,5 @@ class EyeAsteroids:
                 self.state_game = 0
                 self.cancel_wait = self._wait_for_spawn(6)
                 self.points = 0
+            elif (event.type == pygame.KEYDOWN and event.key == pygame.K_c) and self.state_game == 0:
+                self.status_webcam = not self.status_webcam

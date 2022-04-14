@@ -4,6 +4,8 @@ from pygame.transform import rotozoom
 from utils import load_sprite
 from game import Game
 from math import atan2, pi
+import cv2
+from gaze_tracking import GazeTracking
 
 
 
@@ -15,10 +17,10 @@ class Spaceship(Game):
 		)
 
 	# disegna la navicella e ruota in base alle coordinate del giocatore che osserva lo schermo
-	def draw(self, surface):
+	def draw(self, surface, coordinate):
 		position_spaceship_x, position_spaceship_y = self.position
 		
-		coordinate_x, coordinate_y = pygame.mouse.get_pos()
+		coordinate_x, coordinate_y = coordinate
 
 		#calcolo per trovare l'angolo
 		angle = atan2(

@@ -10,10 +10,10 @@ class Laser():
 		self.start_point = start_point
 
 	# disegna la linea, ricevendo la coordinata (x,y)
-	def draw(self, surface):
+	def draw(self, surface, coordinate):
 		w,h = surface.get_size()
 		
-		coordinate = pygame.mouse.get_pos()
+		#coordinate = pygame.mouse.get_pos()
 
 
 		# disegna la linea dal centro alla coordinata indicata
