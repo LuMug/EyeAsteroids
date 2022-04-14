@@ -351,6 +351,8 @@ Questa classe necessita diversi attributi:
 - `width`:  altezza del display del gioco;
 - `height`: lunghezza del display del gioco;
 - `clock`: oggetto `Clock` dalla libreria pygame.time;
+- `status_webcam`: attributo booleana, indica se si vuole utilizzare la webcam o meno per il gioco;
+- `coordinates`: Attributo che contiene due valori, la coordinata x e la coordinata y. Le coordinate viene definito dal mouse oppure dal webcam a dipendenza del valore dell'attributo `status_webcam`;
 - `state_game`: stato dell'applicazione indicato dal suo valore: 
   - Valore `0` indica la schermata iniziale (home); 
   - Valore `1` indica la schermata del gioco (modalità gioco);
