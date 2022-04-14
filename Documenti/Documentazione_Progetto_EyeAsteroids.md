@@ -274,32 +274,32 @@ Questa classe serve per definire gli asteroidi nel gioco ereditando la classe `G
 
 ```py
 def __init__(self, x, y, angle, select):
-		random_sprite = [
-			["asteroid0",100,250,4],
-			["asteroid1",50,500,2],
-			["asteroid2",20,750,1]
-		]
-		if select != 0:
-			self.sprite_name = random_sprite[0][0]
-			self.point = random_sprite[0][1]
+	random_sprite = [
+	    ["asteroid0",100,250,4],
+	    ["asteroid1",50,500,2],
+	    ["asteroid2",20,750,1]
+	]
+	if select != 0:
+	    self.sprite_name = random_sprite[0][0]
+	    self.point = random_sprite[0][1]
 		
-			# attributo per definire quanti secondi servono per distruggere l'asteroide
-			self.life = random_sprite[0][2]
-			self.speed = random_sprite[0][3]
-		else:
-			rand = random.randint(0, 2)
-			self.sprite_name = random_sprite[rand][0]
-			self.point = random_sprite[rand][1]
+	    # attributo per definire quanti secondi servono per distruggere l'asteroide
+	    self.life = random_sprite[0][2]
+	    self.speed = random_sprite[0][3]
+	else:
+	    rand = random.randint(0, 2)
+	    self.sprite_name = random_sprite[rand][0]
+            self.point = random_sprite[rand][1]
 
-			# attributo per definire quanti secondi servono per distruggere l'asteroide
-			self.life = random_sprite[rand][2]
-			self.speed = random_sprite[rand][3]
-		self.x = x
-		self.y = y
-		self.position = Vector2(self.x, self.y)
-		super().__init__(
-			self.position, load_sprite(self.sprite_name), Vector2(self.speed, 0).rotate(angle)
-		)
+	    # attributo per definire quanti secondi servono per distruggere l'asteroide
+            self.life = random_sprite[rand][2]
+	    self.speed = random_sprite[rand][3]
+	    self.x = x
+	    self.y = y
+	    self.position = Vector2(self.x, self.y)
+	    super().__init__(
+	        self.position, load_sprite(self.sprite_name), Vector2(self.speed, 0).rotate(angle)
+	    )
 ```
 In questa classe necessita lo sprite per definire l'immagine, il valore del punteggio, la vita e la velocità, tutto questo viene definito casualmente per ogni asteroide. Inoltre serve anche la posizione dell'asteroide e l'angolo per indicare la direzione in cui va l'asteroide siccome che il vettore y della velocità è 0. La variabile `select` serve a cambiare il tipo di asteroide da creare, questo per via della divisione degli asteroidi grandi che quando vengono distrutti si dividono in due più piccoli, quindi quando viene distrutto un asteroide grande non devono essere creati due asteroidi casuali.
 
@@ -368,17 +368,83 @@ Questa classe necessita diversi attributi:
  - `cancel_wait`: attributo che contiene la thread per lo spawn degli asteroidi.
 
 Questa classe contiene tanti metodi:
-- `_init_pygame()`:
-- `main_loop()`:
-- `_draw_home()`:
-- `_draw_game()`:
-- `_draw_info()`:
-- `_draw_insert_name()`:
-- `_draw_end()`:
-- `_process_game_logic()`:
-- `_get_game_objects()`:
-- `_laser_collision()`:
-- `_collide_any_asteroid()`:
+- `_init_pygame()`: un metodo che inizializza pygame e imposta il titolo della finestra.
+- `main_loop()`: questo metodo contiene un ciclo con la condizione `True`. In questo ciclo ci dev'essere il controllo del valore `state_game` e in base al suo valore, invoca un metodo che permette di stampare sulla schermata ed eventuali altri metodi.
+
+```py
+def main_loop(self):
+    webcam = cv2.VideoCapture(0)
+    width = webcam.get(cv2.CAP_PROP_FRAME_WIDTH) 
+    height = webcam.get(cv2.CAP_PROP_FRAME_HEIGHT)
+    replay = 0
+    while True:
+        self.clock.tick(60)
+        self._handle_input()
+        self._change_status_webcam()
+
+        if self.state_game == 0:
+            # Stampa la schermata home
+            self._draw_home()
+
+        elif self.state_game == 1:
+            # Stampa la schermata game e esegue la logica del gioco (movimenti degli oggetti, ...)
+            if replay == 0:     
+                _, frame = webcam.read()
+                self.gaze.refresh(frame)
+                replay = 1
+            frame = self.gaze.annotated_frame()
+            self._draw_game()
+            self._process_game_logic()
+
+	elif self.state_game == 2:
+            # Stampa la schermata informazioni per mostrare il punteggio degli asteroidi
+            self._draw_info()
+
+	elif self.state_game == 3:
+            # Stampa la schermata per inserire il nickname
+            self._draw_insert_name()
+
+        else:
+            webcam.release()
+            cv2.destroyAllWindows()
+            # Stampa la schermata per mostrare la classifica dei punteggi dei giocatori
+            self._draw_end()
+```
+
+- `_draw_home()`: metodo che stampa il titolo del gioco, sfondo e indicazioni dei tasti. (Prima cosa da eseguire in questo metodo è stampare lo sfondo nero).
+- `_draw_game()`: stampa il gioco, ossia tutti gli oggetti (navicella, asteroidi e laser) e il punteggio. Il laser viene stampata solo se l'attributo `coordinates` si trova uno degli asteroidi nel gioco (viene utilizzata `_laser_collision()` che viene descritto uno dei prossimi punti) (prima cosa da eseguire in questo metodo è stampare lo sfondo nero).
+- `_draw_info()`: stampa le informazioni del gioco (Valore dei punti degli asteroidi e i tasti) (prima cosa da eseguire in questo metodo è stampare lo sfondo nero).
+- `_draw_insert_name()`: stampa il titolo "Game over", stampa una frase dove chiede di scrivere il nome del giocatore e stampa l'attributo `player` (viene aggiornato automaticamente dal metodo `_handle_input()`) e carattere underscore come il cursore (prima cosa da eseguire in questo metodo è stampare lo sfondo nero).
+- `_draw_end()`: Stampa la classifica dei cinque migliori giocatori in funzione del punteggio fatto nel gioco e stampa il punteggio del giocatore corrente (prima cosa da eseguire in questo metodo è stampare lo sfondo nero).
+- `_process_game_logic()`: esegue il movimento degli asteroidi (tramite `move()` in riferimento all'asteroide) e controlla la collisione tra asteroidi e navicella.
+- `_laser_collision()`: controlla se il valore `coordinates` si trova uno degli asteroidi nel gioco (utilizzata dal metodo `_collide_any_asteroids()`), se questa condizione viene soddisfatta, stampa il laser e decrementa la vita dell'asteroide in funzione dei millisecondi passati. Se la vita dell'asteroide arriva a 0 o meno, aumenta il punteggio e l'asteroide viene distrutto e se quell'asteroide è quello grande, veongono generate altri due asteroidi partendo dalla stessa posizione.
+```py
+def _laser_collision(self):
+    asteroid = self._collide_any_asteroid()
+    if(asteroid != None):  
+        self.laser.draw(self.screen, self.coordinates)
+	if self.last_time == None:
+	    self.last_time = pygame.time.get_ticks()
+            
+        now = pygame.time.get_ticks()
+        delta = now - self.last_time;
+        asteroid.life -= delta
+        self.last_time = now
+        if asteroid.life <= 0:
+            self.points += asteroid.point
+            if asteroid.point == 20:
+                angle_1 = random.randint(0,360)
+                angle_2 = random.randint(0,360)
+                x,y = asteroid.position
+                self.asteroids.append(Asteroid(x, y, angle_1, 1))
+                self.asteroids.append(Asteroid(x, y, angle_2, 1))
+            self.asteroids.remove(asteroid)
+            del asteroid
+    else:
+        self.last_time = None
+```
+
+- `_collide_any_asteroid()`: ciclo degli asteroidi (attributo `asteroids`) controllando se le coordinate si trova nell'area degli asteroidi, se questa condizione viene soddisfatta, ritorna l'asteroide corrente, se invece non trova nulla, ritorna il valore `None`
 - `_spawn_asteroids()`: questo metodo permette la generazione di asteroidi in posizioni casuali e con angolazioni che puntano a far entrare gli asteroidi nell'area di gioco.
 ```py
 def _spawn_asteroids(self, quantity):
@@ -432,6 +498,7 @@ def _wait_for_spawn(self, interval):
         Thread(target=loop).start()    
         return stopped.set
 ```
+- `_change_status_webcam()`:
 - `_handle_input()`:
 
 ## Test
