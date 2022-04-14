@@ -338,9 +338,7 @@ Questa classe necessita solamente il punto iniziale (in questo caso, centro).
 
 Il metodo `draw(surface)` stampa la linea utilizzando il colore, il punto di partenza definito dall'attributo di questa classe, punto finale definito dalle coordinate del giocatore che osserva lo schermo e infine il parametro `width` che rappresenta lo spessore della linea.
 ```py
-def draw(self, surface):    
-    coordinate = pygame.mouse.get_pos()
-
+def draw(self, surface, coordinate):
     pygame.draw.line(surface, (255,255,255), self.start_point, coordinate, width=2)
 ```
 
@@ -362,7 +360,7 @@ Questa classe necessita diversi attributi:
  - `points`: punteggio del giocatore corrente;
  - `player`: nickname del giocatore corrente;
  - `spaceship`: oggetto `Spaceship`, inizializzata come `None`;
- - `asteroids`: lista degli oggestti `Asteroid`;
+ - `asteroids`: lista degli oggetti `Asteroid`;
  - `last_time`: attributo per calcolare la durata della collisione tra punta del laser e l'asteroide, inizializzata come `None`;
  - `wait`: tempo di attesa tra lo spawn degli asteroidi;
  - `cancel_wait`: attributo che contiene la thread per lo spawn degli asteroidi.
