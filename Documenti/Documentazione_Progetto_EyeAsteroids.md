@@ -204,8 +204,6 @@ In questo schermo mostra le informazioni necessarie del gioco, cercando di mante
 ![Progettazione](Progettazione/Interfaccie/game.PNG)
 > Schermata di gioco
 
-Su questo design non c'é molto da dire abbiamo cercato di rispettare il gioco originale.
-
 Quando un utente vuole iniziare la partita viene mostrata questo schermata. Abbiamo cercato di rispettare il gioco originale. Ci sono molti asteroidi in movimento disperse nella superficie e la navicella sta in centro cercando di distruggere tutti gli asteroidi ruotando se stesso. In questa schermata viene mostrato i punteggi fatti nel corso della partita.
 
 ### Schermata Classifica
