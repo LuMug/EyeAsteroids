@@ -147,6 +147,22 @@ Lo scopo del progetto è di creare un videogame che riprenda l’iconico Asteroi
 |**Note**      | Più tipolgie di asteroidi |
 
 
+|              |**ID: Req-011**                 |
+|--------------|--------------------------------|
+|**Nome**      |Porter rigiocare                |
+|**Priorità**  | 2                              |
+|**Versione**  | 1.1                            |
+|**Note**      | Poter fare una seconda partita |
+
+
+|              |**ID: Req-012**                        |
+|--------------|---------------------------------------|
+|**Nome**      |Classifica                             |
+|**Priorità**  | 2                                     |
+|**Versione**  | 1.1                                   |
+|**Note**      |Ci può essere più volte lo stesso nome.|
+
+
 
 ### Use case
 Ecco il nostro Use Case:
@@ -571,9 +587,9 @@ def _handle_input(self):
 
 ### Utilizzo database
 
-In questo progetto, viene utilizzato SQLite per poter memorizzare i dati delle partite fatti e utilizzarli per mostrare la classifica. 
+In questo progetto, viene utilizzato SQLite per poter memorizzare i dati delle partite fatti e utilizzarli per mostrare la classifica.
 
-Quindi è necessario importare `sqlite3` e `datetime`. 
+Quindi è necessario importare `sqlite3` e `datetime`.
 E creare tre metodi utili per effettuare le operazioni durante l'esecuzione del gioco:
 - `createDatabse()` per creare il database, ma ci vuole un controllo prima di eseguire questo metodo se non esiste il database, se questa condizione soddisfa, può invocare questo metodo altrimenti non fa nulla.
 - `insertResult()` per inserire i risultati dopo aver finito il gioco e dopo aver messo il nome dell'utente. I dati che vengono salvati sono il nome dell'utente, punteggio e la data espressa in YYYY-MM-DD.
@@ -593,57 +609,156 @@ Si può implementare i metodi utili che potrebbero essere utili per il progetto.
 
 ### Protocollo di test
 
-Definire in modo accurato tutti i test che devono essere realizzati per
-garantire l’adempimento delle richieste formulate nei requisiti. I test
-fungono da garanzia di qualità del prodotto. Ogni test deve essere
-ripetibile alle stesse condizioni.
+| Test Case | TC-001 |
+|---|---|
+| **Nome** | La navicella deve ruotare su se stessa  |
+| **Descrizione** | La navicella deve essere sempre al centro del frame e non si deve potere spostare da li. |
+| **Procedura** | Avviare il programma e avviare la schermata di gioco e provare a girasi su se stessi e controllare che non si sposti la navicella. |
+| **Risultati attesi** | La navicella gira su se stessa senza spostarsi  |
 
 
-|Test Case      | TC-001                               |
-|---------------|--------------------------------------|
-|**Nome**       |Import a card, but not shown with the GUI |
-|**Riferimento**|REQ-012                               |
-|**Descrizione**|Import a card with KIC, KID and KIK keys with no obfuscation, but not shown with the GUI |
-|**Prerequisiti**|Store on local PC: Profile\_1.2.001.xml (appendix n\_n) and Cards\_1.2.001.txt (appendix n\_n) |
-|**Procedura**     | - Go to “Cards manager” menu, in main page click “Import Profiles” link, Select the “1.2.001.xml” file, Import the Profile - Go to “Cards manager” menu, in main page click “Import Cards” link, Select the “1.2.001.txt” file, Delete the cards, Select the “1.2.001.txt” file, Import the cards |
-|**Risultati attesi** |Keys visible in the DB (OtaCardKey) but not visible in the GUI (Card details) |
+| Test Case | TC-002 |
+|---|---|
+| **Nome** | Poter saprare con lo sguardo sparo singolo   |
+| **Descrizione** | La navicella deve poter sparare dove si guarda. |
+| **Procedura** | Avviare il programma cambiare la modalita di sparo con il taso dedicato e avviare il gioco e provare a giocare. |
+| **Risultati attesi** |La navicella spara agli asteroidi a qui si punta.  |
+
+| Test Case | TC-003 |
+|---|---|
+| **Nome** | Poter sparare con la tastiera   |
+| **Descrizione** | La navicella deve poter sparare dove si punta. |
+| **Procedura** | Avviare il programma  avviare il gioco e provare a giocare. |
+| **Risultati attesi** |La navicella spara agli asteroidi a qui si punta.  |
+
+
+| Test Case | TC-004 |
+|---|---|
+| **Nome** | Diverse difficoltà in base al tempo   |
+| **Descrizione** | Più passa il tempo più il gioco deve diventare difficile. |
+| **Procedura** | Avviare il programma  avviare il gioco e giocare più a lungo possibile. |
+| **Risultati attesi** | Che il gioco diventi più difficile grazie alla quantià superiore di asteroidi. |
+
+| Test Case | TC-005 |
+|---|---|
+| **Nome** | Essere fedele alla versione originale   |
+| **Descrizione** | Il gioco deve essere più simile possibile a quello originale. |
+| **Procedura** | Avviare il gioco e navigare nelle schermate e valutare |
+| **Risultati attesi** | Che il gioco sia uguale o molto simile a quello originale. |
+
+
+| Test Case | TC-006 |
+|---|---|
+| **Nome** | Avere un database dove salvare la classifica   |
+| **Descrizione** | Il gioco deve possedere un database dove viene salvata la classifica. |
+| **Procedura** | Fare una partita, dopo di che controllare se esiste un file per la classifica nella cartella. |
+| **Risultati attesi** | Che esista un file per la classifica. |
+
+| Test Case | TC-007 |
+|---|---|
+| **Nome** | Generare gli asteroidi in movimento   |
+| **Descrizione** | Che gli asteroidi generati entrino nella visuale di schermo. |
+| **Procedura** | Fare una partita e vedere se ci sono gli asteroidi. |
+| **Risultati attesi** | Che esistano degli asteroidi e che si muovano. |
+
+
+| Test Case | TC-008 |
+|---|---|
+| **Nome** | Punteggio   |
+| **Descrizione** | Che ogni punteggio abbia un valore diverso.   |
+| **Procedura** | Avviare il gioco andare nella schermata di informazioni e vedere i punteggi dopo di che far partire il gioco e colpire gli asteroidi. |
+| **Risultati attesi** | Dopo ogni asteroide colpito il punteggio salga del valore giusto. |
+
+
+| Test Case | TC-009 |
+|---|---|
+| **Nome** | Macchina dedicata   |
+| **Descrizione** | Che il programma sia su una macchina dedicata.   |
+| **Procedura** | verificare che sia una macchina dedicata |
+| **Risultati attesi** | Che ci sia una macchina dedicata al progetto. |
+
+
+
+| Test Case | TC-010 |
+|---|---|
+| **Nome** | Asteroidi multipli   |
+| **Descrizione** | Per quanto riguarda gli asteroidi grandi che espolodano in altri più piccoli.   |
+| **Procedura** | Avviare il programma, andare nella schermata di gioco e colpire un asteroide grande. |
+| **Risultati attesi** | Che l'asteroide si divida in altri più piccoli. |
+
+
+
+| Test Case | TC-011 |
+|---|---|
+| **Nome** | Poter rigiocare   |
+| **Descrizione** | Che si possa fare un'altra partita senza dover chiudere il programma.   |
+| **Procedura** | Avviare il programma, andare nella schermata di gioco e fare una partita una volta morti premere h. |
+| **Risultati attesi** | Che si venga protati alla schermata home. |
+
+
+
+| Test Case | TC-012 |
+|---|---|
+| **Nome** | Classifica   |
+| **Descrizione** | Ci deve essere una classifica.   |
+| **Procedura** | Avviare il programma, giocare e a fine partita mettere il proprio nome nella schermata apposita. |
+| **Risultati attesi** | Che venga chiesto il nome al giocatore e che venga aggiunto alla classifica. |
+
+
 
 
 ### Risultati test
+| Test-*  | Descrizione test                                       | Risultato Tastiera | Risultato Occhi | Note Tastiera | Note Occhi         |
+|---------|--------------------------------------------------------|--------------------|-----------------|---------------|--------------------|
+| Test-1  | La navicella deve ruotare su se stessa                 | Passato            | Passato         | -             |                    |
+| Test-2  | Poter saprare con lo sguardo sparo singolo             | -                  | Fallito         | -             |                    |
+| Test-3  | Poter sparare con la tastiera                          | Passato            | -               | -             |                    |
+| Test-4  | Diverse difficoltà in base al tempo                    | Passato            | Passato         | -             |                    |
+| Test-5  | Essere fedele alla versione originale                  | Passato            | Passato         | -             |                    |
+| Test-6  | Avere un database dove salvare la classifica           | Passato            | -               | -             |                    |
+| Test-7  | Generare gli asteroidi in movimento                    | Passato            | Passato         | -             |                    |
+| Test-8  | Punteggio                                              | Passato            | Passato         | -             |                    |
+| Test-9  | Macchina dedicata                                      | Passato            | Passato         | -             |                    |
+| Test-10 | Asteroidi multipli                                     | Passato            | Passato         | -             |                    |
+| Test-11 | Poter rigiocare                                        | Passato            | Passato         | -             |                    |
+| Test-12 | Classifica                                             | Passato            | Passato         | -             |                    |
 
-Tabella riassuntiva in cui si inseriscono i test riusciti e non del
-prodotto finale. Se un test non riesce e viene corretto l’errore, questo
-dovrà risultare nel documento finale come riuscito (la procedura della
-correzione apparirà nel diario), altrimenti dovrà essere descritto
-l’errore con eventuali ipotesi di correzione.
+
+
 
 ### Mancanze/limitazioni conosciute
 
-Descrizione con motivazione di eventuali elementi mancanti o non
-completamente implementati, al di fuori dei test case. Non devono essere
-riportati gli errori e i problemi riscontrati e poi risolti durante il
-progetto.
+Come mancanze eo limitazioni c'é scicuramente il fatto che in questo momento il gioco con il comando degli occhi non funziona. Per quanto riguarda invece il lato tastiera il tutto funziona in modo perfetto.
+
 
 ## Consuntivo
 
-Consuntivo del tempo di lavoro effettivo e considerazioni riguardo le
-differenze rispetto alla pianificazione (cap 1.7) (ad esempio Gannt
-consuntivo).
+![Gantt consuntivo](../Documenti/Gantt/GanttConsuntivo_Completo.PNG)
+> Gantt consuntivo
 
-## Conclusioni
 
-Quali sono le implicazioni della mia soluzione? Che impatto avrà?
-Cambierà il mondo? È un successo importante? È solo un’aggiunta
-marginale o è semplicemente servita per scoprire che questo percorso è
-stato una perdita di tempo? I risultati ottenuti sono generali,
-facilmente generalizzabili o sono specifici di un caso particolare? ecc
+# Conclusioni
 
-### Sviluppi futuri
-  Migliorie o estensioni che possono essere sviluppate sul prodotto.
+## Considerazioni finali
+
+
 
 ### Considerazioni personali
-  Cosa ho imparato in questo progetto? ecc
+| Mattia |
+|--------|
+| |
 
+| Alessandro Aloise|
+|------------|
+|Il progetto su qui abbiamo lavorato ha ampliato le mie conoscenze soprattutto per quanto riguarda python, in passato avevo già avuto modo di lavorarci ma non per un progetto così tanto grande. Penso che abbiamo lavorato molto bene e che siamo riusciti a triare fuori un ottimo prodotto anche se con alcune lacune. Devo essere sincero mi sono trovato bene con il gruppo che mi sono ritrovato anche se sono persone con qui non avevo mai lavorato, ma é stata comunque una bella esperienza anche perché essendo per loro il primo progetto a gruppi e per me no ho saputo guidarli un po' su come impostare il lavoro. Il programma non è ancora perfetto ma posso dire che ci ho messo tutto me stesso per riuscire a arrivare dove siamo arrivati con il progetto. Trovando la giusta libreria il tutto è già pronto a funzionare in modo perfetto.|
+
+| Alessandro Castelli |
+|--------|
+|  |
+
+
+### Sviluppi futuri
+Gli sviluppi futuri non sono così tanti se si vuole rimanere fedele al gioco originale. Infatti per questo progetto abbiamo deciso di cercare di rispettqare il più fedelmente possibilie il gioco origianle ma per essere uguale a quello mancherebbero alcuni dettagli che con più tempo si potrebbero aggiungere ad esempio la navicella che passa molto velocemente e che da molti punti. Per quanto riguarda invece la parte di webcam e quindi la gestione degli occhi con una libreria adatta il tutto diventerebbe giocabile. Dopo tutte le ricerche che abbiamo fatto secondo noi l'idea migliore per la libreria é svilupparsela da se cosi da non avere limitazioni.
 
 ### Sitografia
 
