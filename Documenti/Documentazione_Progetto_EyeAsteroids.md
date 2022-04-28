@@ -180,7 +180,7 @@ La prima versione del databse conteneva due tabelle una player e una score ma in
 ![Databae](Progettazione/Database/database.PNG)
 > Database
 
-In questa Tabella viene salvati tutti i dati della partita, i dati più imprtanti sono il nome e lo score. Abbiamo deciso di slavare anche la data per eventuali sviluppi futuri.
+Tutti i dati vengono salvati in questa tabella `Score` con gli attributi id, score, data e nome. I dati vengono aggiunte ogni fine partita, e poi il gioco estrae i dati per mostrare la classifica ordinata dal punteggio più alto. Abbiamo deciso salvare anche la data per eventuali sviluppi futuri e statistiche aggiuntive.
 
 
 ### Design delle interfacce
@@ -190,31 +190,32 @@ La prima interfaccia che abbiamo definito è stata quella generale, ovvero l'int
 ![Progettazione](Progettazione/Interfaccie/home.PNG)
 > Schermata home
 
-Siamo andatia vedere la schermata di partenza classica del gioco e l'abbiamo leggermente rivisitata abbiamo deciso di mettere la classifica nella home e di avere due tasti uno per giocare e l'altro per avere semplicemtne le informazioni
+La schermata principale, che mostra il bottone "Start" per iniziare la partita, in questa schermata c'è anche la classifica ordinata in funzione del punteggio. E sopra il bottone c'è il totolo del gioco, ossia "EyeAsteroids". Quando si è in questa schermata c'è la possibilità di utilizzare due tasti, uno per giocare e altro per avere le informazioni del gioco.
+
 
 ### Schermata Info
 ![Progettazione](Progettazione/Interfaccie/info.PNG)
 > Schermata info
 
-Abbiamo pensato a una schermata molto minimalista cercando di tenere lo stesso stile usato nell'resto del gioco, premendo il tasto exit si tornerà alla pagina home
+In questo schermo mostra le informazioni necessarie del gioco, cercando di mantenere lo stesso stile usato nel resto del gioco. Per tornare alla pagina principale si deve premere un tasto indicato.
 
 
 ### Schermata di gioco
 ![Progettazione](Progettazione/Interfaccie/game.PNG)
 > Schermata di gioco
 
-Su questo design non c'é molto da dire abbiamo cercato di rispettare il gioco originale.
+Quando un utente vuole iniziare la partita viene mostrata questo schermata. Abbiamo cercato di rispettare il gioco originale. Ci sono molti asteroidi in movimento disperse nella superficie e la navicella sta in centro cercando di distruggere tutti gli asteroidi ruotando se stesso. In questa schermata viene mostrato i punteggi fatti nel corso della partita.
 
 ### Schermata Classifica
 ![Progettazione](Progettazione/Interfaccie/gameOver.PNG)
 > Schermata dove inserire il nome per la classifica
 
-Abbiamo pensato a una schermata molto pulita e intuitiva per quanto riguarda la classifica. Come si può vedere c'é solo un label dove inserire il nome con sotto il proprio punteggio.
+Abbiamo pensato a una schermata molto pulita e intuitiva per quanto riguarda la classifica. Come si può vedere c'é solo un label dove inserire il nome con sotto il proprio punteggio fatto nella partita. E sopra il label c'è scritto "Game over" per indicare che la partita è finita.
 
 ![Progettazione](Progettazione/Interfaccie/gameOver2.PNG)
 > Schermata game over
 
-Una volta inserito il nome verremo portati a questa schermata dove l'unica cosa che potremmo fare sarà premere il tasto enter per rigiocare oppure chiudere il gioco.
+Una volta inserito il nome, si mostra questa schermata mantenendo il scritto "Game over" e gli indicazioni dei tasti dove se si vuole giocare ancora una partita oppure andare nella schermata principale (home).
 
 
 ## Implementazione
@@ -567,6 +568,26 @@ def _handle_input(self):
 	    # toggle su status_webcam quando clicchi il tasto [c] nella schermata home oppure nella schermata info
             self.status_webcam = not self.status_webcam
 ```
+
+### Utilizzo database
+
+In questo progetto, viene utilizzato SQLite per poter memorizzare i dati delle partite fatti e utilizzarli per mostrare la classifica. 
+
+Quindi è necessario importare `sqlite3` e `datetime`. 
+E creare tre metodi utili per effettuare le operazioni durante l'esecuzione del gioco:
+- `createDatabse()` per creare il database, ma ci vuole un controllo prima di eseguire questo metodo se non esiste il database, se questa condizione soddisfa, può invocare questo metodo altrimenti non fa nulla.
+- `insertResult()` per inserire i risultati dopo aver finito il gioco e dopo aver messo il nome dell'utente. I dati che vengono salvati sono il nome dell'utente, punteggio e la data espressa in YYYY-MM-DD.
+- `showResult()` per fare il select, ovvero prendere i dati dal database i nomi e i loro punteggi, ordinando i punteggi dal valore più alto e prendere solo i primi 5.
+
+### Metodi utili
+
+Si può implementare i metodi utili che potrebbero essere utili per il progetto.
+
+- `load_sprite(name, with_alpa=True)` che ritorna l'immagine ricavando dal nome del file.
+- `writeText(string, coordx, coordy, fontSize,color, self)` che serve per stampare la stringa sulla finestra, personalizzando con il colore e la dimensione dei caratteri e la posizione dove si vuole stampare (le coordinate riferisce al centro del rettangolo del testo).
+- `point_in_object(point, obj)` utile per vedere se il punto sta nell'area di un oggetto a forma di cerchio come asteroide.
+
+
 
 ## Test
 

@@ -49,16 +49,16 @@ class Startgame:
 
         self.status_webcam = False
 
-        self.replay = 0
 
     def main_loop(self):
         webcam = cv2.VideoCapture(0)
         width = webcam.get(cv2.CAP_PROP_FRAME_WIDTH) 
-        height = webcam.get(cv2.CAP_PROP_FRAME_HEIGHT )
+        height = webcam.get(cv2.CAP_PROP_FRAME_HEIGHT)
+        replay = 0
         while True:
             self.clock.tick(60)
             self._handle_input()
-            self._change_status_webcam() 
+            self._change_status_webcam()
 
             if self.state_game == 0:
                 # Stampa la schermata home
@@ -66,10 +66,10 @@ class Startgame:
 
             elif self.state_game == 1:
                 # Stampa la schermata game e esegue la logica del gioco (movimenti degli oggetti, ...)
-                if self.replay == 0:     
+                if replay == 0:     
                     _, frame = webcam.read()
                     self.gaze.refresh(frame)
-                    self.replay =1
+                    replay =1
                 frame = self.gaze.annotated_frame()
                 self._draw_game()
                 self._process_game_logic()
@@ -120,10 +120,9 @@ class Startgame:
         self.screen.fill((0,0,0))
         self.wirte = writeText("Score: " + str(self.points),self.width / 2,10,20,(255,255,255),self)
 
-        self.spaceship = Spaceship((self.width/2, self.height/2))
-        self.laser = Laser((self.width/2, self.height/2))
-        for game_object in self._get_game_objects():
-            game_object.draw(self.screen)
+        for asteroid in self.asteroids:
+            asteroid.draw(self.screen)
+
         self.spaceship.draw(self.screen, self.coordinates)
         self._laser_collision()
         pygame.display.flip()
@@ -170,8 +169,8 @@ class Startgame:
 
     # logica del gioco, dove muovono gli oggetti e controlla la collisione tra asteroidi e la navicella
     def _process_game_logic(self):
-        for game_object in self._get_game_objects():
-            game_object.move()
+        for asteroid in self.asteroids:
+            asteroid.move()
 
         #collisione degli asteroidi con la navicella
         if self.spaceship:
@@ -179,11 +178,6 @@ class Startgame:
                 if asteroid.collides_with(self.spaceship):
                     self.state_game = 3
                     self.cancel_wait()
-
-    # ritornano gli asteroidi e navicella
-    def _get_game_objects(self):
-        #return [*self.asteroids, self.spaceship]
-        return [*self.asteroids]
 
     # Calcolo quando punti l'asteroidi, abbassando la vita dell'asteroide fino a distruggersi
     def _laser_collision(self):
@@ -279,21 +273,22 @@ class Startgame:
     def _handle_input(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
-                # chiude la finestra
+                # chiude la finestra se viene premuto [esc] oppure clicchi il tasto per chiudere la finestra
                 self.cancel_wait()
                 quit()
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN) and self.state_game == 0:
-                # schermata gioco
+                # schermata gioco se clicchi il tasto Return mentre sei nella schermata home
+                self.spaceship = Spaceship((self.width/2, self.height/2))
+                self.laser = Laser((self.width/2, self.height/2))
                 self.asteroids = []
                 self.state_game = 1
 
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 0:
-                # mostra le informazioni se sei nella schermata home
+                # mostra le informazioni se sei nella schermata home quando clicchi il tasto [i]
                 self.state_game = 2
-                self.status_webcam = not self.status_webcam
 
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 2:
-                # esci dalla schermata delle informazioni se sei nella schermata informazioni
+                # esci dalla schermata delle informazioni se sei nella schermata informazioni quando clicchi il tasto [i]
                 self.state_game = 0
 
             elif (self.state_game == 3):
@@ -314,14 +309,17 @@ class Startgame:
                         self.player = self.player[:-1]
                     else:
                         self.player += event.unicode
-            elif (event.type == pygame.KEYDOWN and event.key == pygame.K_r ) and self.state_game == 4:
+            elif (event.type == pygame.KEYDOWN and event.key == pygame.K_r) and self.state_game == 4:
+                # restart, quando clicchi il tasto [r] quando sei nella schermata finale (classifica)
                 self.state_game = 1
                 self.cancel_wait = self._wait_for_spawn(6)
                 self.points = 0
                 
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_h) and self.state_game == 4:
+                # torni alla home, quando clicchi il tasto [r] quando sei nella schermata finale (classifica)
                 self.state_game = 0
                 self.cancel_wait = self._wait_for_spawn(6)
                 self.points = 0
-            elif (event.type == pygame.KEYDOWN and event.key == pygame.K_c) and self.state_game == 0:
+            elif (event.type == pygame.KEYDOWN and event.key == pygame.K_c) and (self.state_game == 0 or self.state_game == 1):
+                # toggle su status_webcam quando clicchi il tasto [c] nella schermata home oppure nella schermata info
                 self.status_webcam = not self.status_webcam
