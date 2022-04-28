@@ -282,7 +282,7 @@ def __init__(self, x, y, angle, select):
 	if select != 0:
 	    self.sprite_name = random_sprite[0][0]
 	    self.point = random_sprite[0][1]
-		
+
 	    # attributo per definire quanti secondi servono per distruggere l'asteroide
 	    self.life = random_sprite[0][2]
 	    self.speed = random_sprite[0][3]
@@ -320,7 +320,7 @@ def draw(self, surface):
         position_spaceship_y - coordinate_y,
         coordinate_x - position_spaceship_x
       ) * 180 / pi
-    
+
     #ruota l'immagine
     rotated_surface = rotozoom(self.sprite, angle, 1.0)
 
@@ -342,7 +342,7 @@ def draw(self, surface, coordinate):
     pygame.draw.line(surface, (255,255,255), self.start_point, coordinate, width=2)
 ```
 
-### Classe EyeAsteroids
+### Classe Startgame
 
 Questa classe serve per far eseguire il gioco, utilizzando la libreria Pygame.
 
@@ -353,8 +353,8 @@ Questa classe necessita diversi attributi:
 - `clock`: oggetto `Clock` dalla libreria pygame.time;
 - `status_webcam`: attributo booleana, indica se si vuole utilizzare la webcam o meno per il gioco;
 - `coordinates`: Attributo che contiene due valori, la coordinata x e la coordinata y. Le coordinate viene definito dal mouse oppure dal webcam a dipendenza del valore dell'attributo `status_webcam`;
-- `state_game`: stato dell'applicazione indicato dal suo valore: 
-  - Valore `0` indica la schermata iniziale (home); 
+- `state_game`: stato dell'applicazione indicato dal suo valore:
+  - Valore `0` indica la schermata iniziale (home);
   - Valore `1` indica la schermata del gioco (modalità gioco);
   - Valore `2` indica la schermata dove mostra le informazioni del gioco;
   - Valore `3` indica la schermata per inserire il nome per salvare il nickname e il punteggio nel database;
@@ -374,7 +374,7 @@ Questa classe contiene tanti metodi:
 ```py
 def main_loop(self):
     webcam = cv2.VideoCapture(0)
-    width = webcam.get(cv2.CAP_PROP_FRAME_WIDTH) 
+    width = webcam.get(cv2.CAP_PROP_FRAME_WIDTH)
     height = webcam.get(cv2.CAP_PROP_FRAME_HEIGHT)
     replay = 0
     while True:
@@ -425,7 +425,7 @@ def _laser_collision(self):
         self.laser.draw(self.screen, self.coordinates)
 	if self.last_time == None:
 	    self.last_time = pygame.time.get_ticks()
-            
+
         now = pygame.time.get_ticks()
         delta = now - self.last_time;
         asteroid.life -= delta
@@ -498,7 +498,7 @@ def _wait_for_spawn(self, interval):
         Thread(target=loop).start()    
         return stopped.set
 ```
-- `_change_status_webcam()`: questo metodo permette di assegnare alle coordinata dal mouse oppure dal webcam in base dal valore dell'attributo `coordinates`. 
+- `_change_status_webcam()`: questo metodo permette di assegnare alle coordinata dal mouse oppure dal webcam in base dal valore dell'attributo `coordinates`.
 ```py
 def _change_status_webcam(self):
     if self.status_webcam:
@@ -529,7 +529,7 @@ def _handle_input(self):
         elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 0:
             # mostra le informazioni se sei nella schermata home quando clicchi il tasto [i]
             self.state_game = 2
-                
+
         elif (event.type == pygame.KEYDOWN and event.key == pygame.K_i) and self.state_game == 2:
             # esci dalla schermata delle informazioni se sei nella schermata informazioni quando clicchi il tasto [i]
             self.state_game = 0
@@ -540,7 +540,7 @@ def _handle_input(self):
             # inserimento nome del giocatore quando finisci il gioco
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                        
+
                     if len(self.player) > 0 :
                         insertResult(self.points, self.player)
                         self.player = ''
@@ -557,7 +557,7 @@ def _handle_input(self):
             self.state_game = 1
             self.cancel_wait = self._wait_for_spawn(6)
             self.points = 0
-               
+
         elif (event.type == pygame.KEYDOWN and event.key == pygame.K_h) and self.state_game == 4:
 	    # torni alla home, quando clicchi il tasto [h] quando sei nella schermata finale (classifica)
             self.state_game = 0
