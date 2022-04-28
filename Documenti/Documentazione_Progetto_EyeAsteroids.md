@@ -708,20 +708,20 @@ Si può implementare i metodi utili che potrebbero essere utili per il progetto.
 
 
 ### Risultati test
-| Test-*  | Descrizione test                                       | Risultato Tastiera | Risultato Occhi | Note Tastiera | Note Occhi         |
-|---------|--------------------------------------------------------|--------------------|-----------------|---------------|--------------------|
-| Test-1  | La navicella deve ruotare su se stessa                 | Passato            | Passato         | -             |                    |
-| Test-2  | Poter saprare con lo sguardo sparo singolo             | -                  | Fallito         | -             |                    |
-| Test-3  | Poter sparare con la tastiera                          | Passato            | -               | -             |                    |
-| Test-4  | Diverse difficoltà in base al tempo                    | Passato            | Passato         | -             |                    |
-| Test-5  | Essere fedele alla versione originale                  | Passato            | Passato         | -             |                    |
-| Test-6  | Avere un database dove salvare la classifica           | Passato            | -               | -             |                    |
-| Test-7  | Generare gli asteroidi in movimento                    | Passato            | Passato         | -             |                    |
-| Test-8  | Punteggio                                              | Passato            | Passato         | -             |                    |
-| Test-9  | Macchina dedicata                                      | Passato            | Passato         | -             |                    |
-| Test-10 | Asteroidi multipli                                     | Passato            | Passato         | -             |                    |
-| Test-11 | Poter rigiocare                                        | Passato            | Passato         | -             |                    |
-| Test-12 | Classifica                                             | Passato            | Passato         | -             |                    |
+| Test-*  | Descrizione test                                       | Risultato Tastiera | Risultato Occhi | Note Tastiera | Note Occhi          |
+|---------|--------------------------------------------------------|--------------------|-----------------|---------------|---------------------|
+| Test-1  | La navicella deve ruotare su se stessa                 | Passato            | Passato         | -             | -                   |
+| Test-2  | Poter saprare con lo sguardo sparo singolo             | -                  | Fallito         | -             |  Libreria           |
+| Test-3  | Poter sparare con la tastiera                          | Passato            | -               | -             | -                   |
+| Test-4  | Diverse difficoltà in base al tempo                    | Passato            | Passato         | -             | -                   |
+| Test-5  | Essere fedele alla versione originale                  | Passato            | Passato         | -             | -                   |
+| Test-6  | Avere un database dove salvare la classifica           | Passato            | -               | -             | -                   |
+| Test-7  | Generare gli asteroidi in movimento                    | Passato            | Passato         | -             | -                   |
+| Test-8  | Punteggio                                              | Passato            | Passato         | -             | -                   |
+| Test-9  | Macchina dedicata                                      | Passato            | Passato         | -             | -                   |
+| Test-10 | Asteroidi multipli                                     | Passato            | Passato         | -             | -                   |
+| Test-11 | Poter rigiocare                                        | Passato            | Passato         | -             | -                   |
+| Test-12 | Classifica                                             | Passato            | Passato         | -             | -                   |
 
 
 
@@ -739,19 +739,20 @@ Come mancanze eo limitazioni c'é scicuramente il fatto che in questo momento il
 
 # Conclusioni
 
-## Considerazioni finali
-
-
 
 ### Sviluppi futuri
   Migliorie o estensioni che possono essere sviluppate sul prodotto.
 
+## Considerazioni finali
+
+Alla fine di questo progetto, ci riteniamo abbastanza soddisfatti. Era la prima volta che lavoravamo assieme anche perché siamo di classi diverse, in più nessuno a parte Alessandro Aloise aveva esperienza in gruppo siamo convinti che l’avere già una persona che ti aiuta a organizzare il modo di lavorare dà una grande mano al gruppo e avere un po’ di sintonia sul modo di lavorare ci ha dato compattezza come gruppo. Il prodotto finale ci soddisfa abbastanza, abbiamo scritto del buon codice con uno stile uguale per tutte le classi anche se sono state scritte da persone diverse, questo grazie alla struttura e alle convenzioni stilistiche che abbiamo deciso a inizio progetto. Parte del merito va sicuramente ai nostri docenti che ci hanno già dalla prima insegnato a rispettare le convenzioni. Il nostro punto di vista, gli aspetti come la gestione del tempo, l’organizzazione e la spartizione del lavoro e la comunicazione tra di noi é stato un punto cruciale dello svolgimento del progetto.
+
+Anche per quanto riguarda la gestione dei commit abbiamo cercato di farli più regolaremente possibili e farli dopo ogni parte di codice importante scritta. Questo ci ha permesso in casi di difficoltà di tornare indietro alla versione precedente senza perdere troppo tempo. Il problema principale in questo progetto purtroppo é stata la liberia che dopo una primo controllo sembrva essere apposto invece ci ha protato problemi fino all'ultima lezione. In generale ci riteniamo contenti di ciò che abbiamo prodotto e di come abbiamo lavorato.
+
 ### Considerazioni personali
 | Mattia |
 |--------|
-|In questo progetto ho imparato molto, la mia conoscenza sulla programmazione in Python è esteso, ho imparato anche come utilizzare la libreria Pygame e SQLite e non è stato complesso perché fortunatamente c'è tanta documentazione e la community è ben estesa.
-Ho imparato a come collaborare con le altre persone per uno progetto, siccome che è la mia prima volta, devo dire che non è stata una brutta esprienza. A livello di implementazioni non è stato complesso, le attività erano relativamente semplici, tranne la ricerca della libreria. Il progetto non è pronto al 100% se confrontiamo con i requisiti che abbiamo ricevuto, ma sono sicuro che il progetto sarà ben completo quando troveremo la libreria ottimale e funzionale. 
-Concludo che con questo progetto mi ha fatto capire quali sono le mie capacità e i miei punti deboli.|
+| In questo progetto ho imparato molto, la mia conoscenza sulla programmazione in Python è esteso, ho imparato anche come utilizzare la libreria Pygame e SQLite e non è stato complesso perché fortunatamente c'è tanta documentazione e la community è ben estesa. Ho imparato a come collaborare con le altre persone per uno progetto, siccome che è la mia prima volta, devo dire che non è stata una brutta esprienza. A livello di implementazioni non è stato complesso, le attività erano relativamente semplici, tranne la ricerca della libreria. Il progetto non è pronto al 100% se confrontiamo con i requisiti che abbiamo ricevuto, ma sono sicuro che il progetto sarà ben completo quando troveremo la libreria ottimale e funzionale. Concludo che con questo progetto mi ha fatto capire quali sono le mie capacità e i miei punti deboli.|
 
 | Alessandro Aloise|
 |------------|
