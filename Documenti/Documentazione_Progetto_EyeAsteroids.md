@@ -586,6 +586,8 @@ Si può implementare i metodi utili che potrebbero essere utili per il progetto.
 - `writeText(string, coordx, coordy, fontSize,color, self)` che serve per stampare la stringa sulla finestra, personalizzando con il colore e la dimensione dei caratteri e la posizione dove si vuole stampare (le coordinate riferisce al centro del rettangolo del testo).
 - `point_in_object(point, obj)` utile per vedere se il punto sta nell'area di un oggetto a forma di cerchio come asteroide.
 
+
+
 ## Test
 
 ### Protocollo di test
