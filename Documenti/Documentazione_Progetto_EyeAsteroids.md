@@ -640,6 +640,8 @@ marginale o è semplicemente servita per scoprire che questo percorso è
 stato una perdita di tempo? I risultati ottenuti sono generali,
 facilmente generalizzabili o sono specifici di un caso particolare? ecc
 
+
+
 ### Sviluppi futuri
   Migliorie o estensioni che possono essere sviluppate sul prodotto.
 
