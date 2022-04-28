@@ -8,7 +8,7 @@ import sys
 
 if __name__ == "__main__":
     try:
-        eyeAsteroids = EyeAsteroids()
+        eyeAsteroids = Startgame()
         print("Start Game")
         eyeAsteroids.main_loop()
     except:
