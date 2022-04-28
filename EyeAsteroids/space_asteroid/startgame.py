@@ -13,7 +13,7 @@ from gaze_tracking import GazeTracking
 import cv2
 
 
-class EyeAsteroids:
+class Startgame:
 
     
     def __init__(self):
