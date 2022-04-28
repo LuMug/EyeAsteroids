@@ -180,7 +180,7 @@ La prima versione del databse conteneva due tabelle una player e una score ma in
 ![Databae](Progettazione/Database/database.PNG)
 > Database
 
-In questa Tabella viene salvati tutti i dati della partita, i dati più imprtanti sono il nome e lo score. Abbiamo deciso di slavare anche la data per eventuali sviluppi futuri.
+Tutti i dati vengono salvati in questa tabella `Score` con gli attributi id, score, data e nome. I dati vengono aggiunte ogni fine partita, e poi il gioco estrae i dati per mostrare la classifica ordinata dal punteggio più alto. Abbiamo deciso salvare anche la data per eventuali sviluppi futuri e statistiche aggiuntive.
 
 
 ### Design delle interfacce
@@ -190,13 +190,14 @@ La prima interfaccia che abbiamo definito è stata quella generale, ovvero l'int
 ![Progettazione](Progettazione/Interfaccie/home.PNG)
 > Schermata home
 
-Siamo andatia vedere la schermata di partenza classica del gioco e l'abbiamo leggermente rivisitata abbiamo deciso di mettere la classifica nella home e di avere due tasti uno per giocare e l'altro per avere semplicemtne le informazioni
+La schermata principale, che mostra il bottone "Start" per iniziare la partita, in questa schermata c'è anche la classifica ordinata in funzione del punteggio. E sopra il bottone c'è il totolo del gioco, ossia "EyeAsteroids". Quando si è in questa schermata c'è la possibilità di utilizzare due tasti, uno per giocare e altro per avere le informazioni del gioco.
+
 
 ### Schermata Info
 ![Progettazione](Progettazione/Interfaccie/info.PNG)
 > Schermata info
 
-Abbiamo pensato a una schermata molto minimalista cercando di tenere lo stesso stile usato nell'resto del gioco, premendo il tasto exit si tornerà alla pagina home
+In questo schermo mostra le informazioni necessarie del gioco, cercando di mantenere lo stesso stile usato nel resto del gioco. Per tornare alla pagina principale si deve premere un tasto indicato.
 
 
 ### Schermata di gioco
@@ -205,16 +206,18 @@ Abbiamo pensato a una schermata molto minimalista cercando di tenere lo stesso s
 
 Su questo design non c'é molto da dire abbiamo cercato di rispettare il gioco originale.
 
+Quando un utente vuole iniziare la partita viene mostrata questo schermata. Abbiamo cercato di rispettare il gioco originale. Ci sono molti asteroidi in movimento disperse nella superficie e la navicella sta in centro cercando di distruggere tutti gli asteroidi ruotando se stesso. In questa schermata viene mostrato i punteggi fatti nel corso della partita.
+
 ### Schermata Classifica
 ![Progettazione](Progettazione/Interfaccie/gameOver.PNG)
 > Schermata dove inserire il nome per la classifica
 
-Abbiamo pensato a una schermata molto pulita e intuitiva per quanto riguarda la classifica. Come si può vedere c'é solo un label dove inserire il nome con sotto il proprio punteggio.
+Abbiamo pensato a una schermata molto pulita e intuitiva per quanto riguarda la classifica. Come si può vedere c'é solo un label dove inserire il nome con sotto il proprio punteggio fatto nella partita. E sopra il label c'è scritto "Game over" per indicare che la partita è finita.
 
 ![Progettazione](Progettazione/Interfaccie/gameOver2.PNG)
 > Schermata game over
 
-Una volta inserito il nome verremo portati a questa schermata dove l'unica cosa che potremmo fare sarà premere il tasto enter per rigiocare oppure chiudere il gioco.
+Una volta inserito il nome, si mostra questa schermata mantenendo il scritto "Game over" e gli indicazioni dei tasti dove se si vuole giocare ancora una partita oppure andare nella schermata principale (home).
 
 
 ## Implementazione
