@@ -568,6 +568,24 @@ def _handle_input(self):
             self.status_webcam = not self.status_webcam
 ```
 
+### Utilizzo database
+
+In questo progetto, viene utilizzato SQLite per poter memorizzare i dati delle partite fatti e utilizzarli per mostrare la classifica. 
+
+Quindi è necessario importare `sqlite3` e `datetime`. 
+E creare tre metodi utili per effettuare le operazioni durante l'esecuzione del gioco:
+- `createDatabse()` per creare il database, ma ci vuole un controllo prima di eseguire questo metodo se non esiste il database, se questa condizione soddisfa, può invocare questo metodo altrimenti non fa nulla.
+- `insertResult()` per inserire i risultati dopo aver finito il gioco e dopo aver messo il nome dell'utente. I dati che vengono salvati sono il nome dell'utente, punteggio e la data espressa in YYYY-MM-DD.
+- `showResult()` per fare il select, ovvero prendere i dati dal database i nomi e i loro punteggi, ordinando i punteggi dal valore più alto e prendere solo i primi 5.
+
+### Metodi utili
+
+Si può implementare i metodi utili che potrebbero essere utili per il progetto.
+
+- `load_sprite(name, with_alpa=True)` che ritorna l'immagine ricavando dal nome del file.
+- `writeText(string, coordx, coordy, fontSize,color, self)` che serve per stampare la stringa sulla finestra, personalizzando con il colore e la dimensione dei caratteri e la posizione dove si vuole stampare (le coordinate riferisce al centro del rettangolo del testo).
+- `point_in_object(point, obj)` utile per vedere se il punto sta nell'area di un oggetto a forma di cerchio come asteroide.
+
 ## Test
 
 ### Protocollo di test
