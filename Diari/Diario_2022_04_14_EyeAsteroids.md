@@ -5,23 +5,22 @@
 ## Lavori svolti
 
 
-|Orario        |Lavoro svolto                                               	  |Eseguito da        |
+|Orario        |Lavoro svolto                                               	    |Eseguito da        |
 |--------------|----------------------------------------------------------------- |-------------------|
-|09:05 - 09:20 | Riunione 		  												  |Aloise, Castelli e Pasquini|
-|09:20 - 11:35 | Impostare la scelta dell'uso del mouse o webcam				  |Pasquini e Aloise|
-|11:35 - 16:15 | Documentazione e pulizia del codice e ottimizzazione		 	  |Pasquini e Castelli|
-|11:35 - 16:15 | Ricerca libreria											 	  |Pasquini e Castelli|
-|16:15 - 16.30 | Diario				   						  					  |Pasquini|
+|09:05 - 09:20 | Riunione 		  												                          |Aloise, Castelli e Pasquini|
+|09:20 - 11:35 | Impostare la scelta dell'uso del mouse o webcam				          |Pasquini e Aloise|
+|11:35 - 16:15 | Documentazione e pulizia del codice e ottimizzazione		 	        |Pasquini e Castelli|
+|11:35 - 16:15 | Ricerca libreria											 	                          |Pasquini e Castelli|
+|16:15 - 16.30 | Diario				   						  					                          |Pasquini|
 
-Mattia Pasquini era assente
 
 ##  Problemi riscontrati e soluzioni adottate
 I problemi riscontrati durante questa giornata:
 
 * Pc fornito dalla scuola molto lento
-* Dava degli errori nel codice, perché non era gestito bene le coordinate. 
+* Dava degli errori nel codice, perché non era gestito bene le coordinate.
 Nel ciclo for each nel metodo `_draw_game()`, mancava il parametro `coordinate` nel metodo `draw()` perchè il metodo `_get_game_objects()` ritorna sia gli asteroidi che navicella ma il metodo `draw()` di navicella possiede anche il parametro coordinata mentre gli asteroidi no.
-```py 
+```py
 
 for game_object in self._get_game_objects():
     game_object.draw(self.screen)
@@ -29,7 +28,7 @@ for game_object in self._get_game_objects():
 ```
 quindi abbiamo risolto creando l'attributo `coordinates`, ecco il codice seguente:
 
-```py 
+```py
 for asteroid in self.asteroids:
     asteroid.draw(self.screen)
 
