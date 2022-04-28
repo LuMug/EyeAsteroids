@@ -13,7 +13,7 @@
 |13:15 - 16.20 | Documentazione e ricerca libreria         				  	            |Aloise                      |
 |13:15 - 16.20 | Migiorie al codice e test                                        |Castelli                    |
 
-Mattia é assente per covid
+Mattia é assente per Covid-19
 
 ##  Problemi riscontrati e soluzioni adottate
 I problemi riscontrati durante questa giornata:
