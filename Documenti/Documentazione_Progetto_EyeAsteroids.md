@@ -6,7 +6,7 @@
 
   - [Scopo](#scopo)
 
-1. [Analisi](#analisi)
+2. [Analisi](#analisi)
 
   - [Analisi del dominio](#analisi-del-dominio)
 
@@ -18,15 +18,15 @@
 
   - [Pianificazione](#pianificazione)
 
-1. [Progettazione](#progettazione)
+3. [Progettazione](#progettazione)
 
   - [Design dell’architettura del sistema](#design-dell’architettura-del-sistema)
 
   - [Design dei dati e database](#design-dei-dati-e-database)
 
-1. [Implementazione](#implementazione)
+4. [Implementazione](#implementazione)
 
-1. [Test](#test)
+5. [Test](#test)
 
   - [Protocollo di test](#protocollo-di-test)
 
@@ -34,17 +34,17 @@
 
   - [Mancanze/limitazioni conosciute](#mancanze/limitazioni-conosciute)
 
-1. [Consuntivo](#consuntivo)
+6. [Consuntivo](#consuntivo)
 
-1. [Conclusioni](#conclusioni)
+7. [Conclusioni](#conclusioni)
 
   - [Sviluppi futuri](#sviluppi-futuri)
 
   - [Considerazioni personali](#considerazioni-personali)
 
-1. [Sitografia](#sitografia)
+8. [Sitografia](#sitografia)
 
-1. [Allegati](#allegati)
+9. [Allegati](#allegati)
 
 
 ## Introduzione
