@@ -760,7 +760,7 @@ Anche per quanto riguarda la gestione dei commit abbiamo cercato di farli più r
 
 | Alessandro Castelli |
 |--------|
-|  |
+|Come mio primo progetto a gruppi direi che abbiamo lavorato molto bene gestendo molto bene la suddivisione del lavoro tra i vari membri del gruppo. Durante il progetto ho potuto conescere la programmazione in python che è un linguaggio che non avevo mai utilizzato prima e che avevo voglia di imparare ad utilizzare, grazie alle documentazioni di python trovate online che mi aiutavano in caso di difficoltà sono riuscito a lavorare bene anche con questo linguaggio con cui non mi ero mai interfacciato. La parte di implementazione del gioco in fin dei conti non è stata molto complicata tranne per il fatto che non siamo riusciti a trovare una libreria di tracciamento degli occhi ottimale ma nonostante questo sono molto soddisfatto del lavoro che abbiamo fatto e del prodotto finale. Grazie a questo progetto ho potuto ampliare un po' le mie conoscenze di programmazione e le mie capacità.|
 
 
 ### Sviluppi futuri
