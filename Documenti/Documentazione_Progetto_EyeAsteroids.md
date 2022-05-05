@@ -20,11 +20,25 @@
 
 3. [Progettazione](#progettazione)
 
-  - [Design dell’architettura del sistema](#design-dell’architettura-del-sistema)
+  - [Diagramma delle classi](#diagramma-delle-classi)
 
   - [Design dei dati e database](#design-dei-dati-e-database)
 
 4. [Implementazione](#implementazione)
+  
+  - [Classe Game](#classe-game)
+
+  - [Classe Asteroid](#classe-asteroid)
+  
+  - [Classe Spaceship](#classe-spaceship)
+  
+  - [Classe Laser](#classe-laser)
+  
+  - [Classe Startgame](#classe-startgame)
+  
+  - [Utilizzo Database](#utilizzo-database)
+  
+  - [Metodi utili](#metodi-utili)
 
 5. [Test](#test)
 
@@ -192,10 +206,10 @@ Come si può notare abbiamo deciso di dediare molto tempo a come sparare con gli
 
 ## Progettazione
 ### Diagramma delle classi
-In questo diagramma delle classi sono contenute cinque classi. La classe principale è Startgame, che utilizza Spaceship, Asteroid e Laser. Le classi Asteroid e Spaceship estendono la classe Game.
-
 ![Databae](Progettazione/DiagrammaClassi/DiagrammaClassi.png)
 > Diagramma delle classi
+
+In questo diagramma delle classi sono contenute cinque classi. La classe principale è Startgame, che utilizza Spaceship, Asteroid e Laser. Le classi Asteroid e Spaceship estendono la classe Game.
 
 ### Design dei dati e database
 La prima versione del databse conteneva due tabelle una player e una score ma in fase di implementazione ci siamo accorti che era davvero inutile avere due tabelle quindi abbiamo deciso di tenerne solo una e di fargli qualche modifica :
