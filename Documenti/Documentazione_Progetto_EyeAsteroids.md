@@ -191,6 +191,12 @@ Come si può notare abbiamo deciso di dediare molto tempo a come sparare con gli
 - Webcam
 
 ## Progettazione
+### Diagramma delle classi
+In questo diagramma delle classi sono contenute cinque classi. La classe principale è Startgame, che utilizza Spaceship, Asteroid e Laser. Le classi Asteroid e Spaceship estendono la classe Game.
+
+![DiagrammaClassi](Progettazione/Diagramma classi/DiagrammaClassi.png)
+> Diagramma delle classi
+
 ### Design dei dati e database
 La prima versione del databse conteneva due tabelle una player e una score ma in fase di implementazione ci siamo accorti che era davvero inutile avere due tabelle quindi abbiamo deciso di tenerne solo una e di fargli qualche modifica :
 ![Databae](Progettazione/Database/database.PNG)
