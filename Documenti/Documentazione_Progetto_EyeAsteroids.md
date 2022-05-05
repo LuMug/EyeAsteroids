@@ -53,7 +53,7 @@
 - Allievi coinvolti nel progetto: Alessandro Aloise, Mattia Pasquini, Alessandro Castelli
 - Classe: I3AA e I3BB, Scuola Arti e Mestieri Trevano, sezione Informatica.
 - Docenti responsabili: Luca Muggiasca.
-- Data inizio: 27 gennario 2022
+- Data inizio: 27 gennaio 2022
 - Data di fine: 05 maggio 2022.
 
 ### Abstract
