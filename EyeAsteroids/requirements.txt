@@ -1,1 +1,30 @@
+python3 == 3.8
+numpy == 1.16.1
+opencv_python == 4.2.0.32
 pygame==2.0.0
+dlib == 19.16.0
+
+#Setup Progetto
+#eseguire i segenti comandi.
+sudo apt update 
+sudo apt upgrade
+
+#Install python3.8
+sudo apt-get install python3.8
+
+#Install pip
+sudo apt install python3-pip
+
+#Install pygame
+sudo apt-get install python3-pygame
+
+
+#Install cv2
+sudo apt install python3-opencv
+
+
+#Install dlib
+#Seguire questa guida: https://kumarvinay.com/installing-dlib-library-in-ubuntu/
+
+
+
